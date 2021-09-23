@@ -5,7 +5,7 @@
 -- Dumped from database version 13.4 (Ubuntu 13.4-1.pgdg20.04+1)
 -- Dumped by pg_dump version 13.4 (Ubuntu 13.4-1.pgdg20.04+1)
 
--- Started on 2021-09-23 16:19:41 EDT
+-- Started on 2021-09-23 16:21:56 EDT
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -434,7 +434,7 @@ ALTER TABLE ONLY public."tbResult"
 --
 
 ALTER TABLE ONLY public."tbSubmission"
-    ADD CONSTRAINT "tbSubmission_SubmittingUser_tbUser_Uuid_fk" FOREIGN KEY ("SubmittingUser") REFERENCES public."tbUser"("Uuid") NOT VALID;
+    ADD CONSTRAINT "tbSubmission_SubmittingUser_tbUser_Uuid_fk" FOREIGN KEY ("SubmittingUser") REFERENCES public."tbUser"("Uuid");
 
 
 --
@@ -446,7 +446,7 @@ ALTER TABLE ONLY public."tbTag"
     ADD CONSTRAINT "tbTag_SubmittingUser_tbUser_Uuid_fk" FOREIGN KEY ("SubmittingUser") REFERENCES public."tbUser"("Uuid");
 
 
--- Completed on 2021-09-23 16:19:41 EDT
+-- Completed on 2021-09-23 16:21:56 EDT
 
 --
 -- PostgreSQL database dump complete
