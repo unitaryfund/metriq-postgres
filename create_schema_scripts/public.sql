@@ -5,7 +5,7 @@
 -- Dumped from database version 13.4 (Ubuntu 13.4-1.pgdg20.04+1)
 -- Dumped by pg_dump version 13.4 (Ubuntu 13.4-1.pgdg20.04+1)
 
--- Started on 2021-09-23 16:13:17 EDT
+-- Started on 2021-09-23 16:19:41 EDT
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -429,12 +429,12 @@ ALTER TABLE ONLY public."tbResult"
 
 
 --
--- TOC entry 2931 (class 2606 OID 16410)
+-- TOC entry 2931 (class 2606 OID 16552)
 -- Name: tbSubmission tbSubmission_SubmittingUser_tbUser_Uuid_fk; Type: FK CONSTRAINT; Schema: public; Owner: metriq
 --
 
 ALTER TABLE ONLY public."tbSubmission"
-    ADD CONSTRAINT "tbSubmission_SubmittingUser_tbUser_Uuid_fk" FOREIGN KEY ("Uuid") REFERENCES public."tbUser"("Uuid");
+    ADD CONSTRAINT "tbSubmission_SubmittingUser_tbUser_Uuid_fk" FOREIGN KEY ("SubmittingUser") REFERENCES public."tbUser"("Uuid") NOT VALID;
 
 
 --
@@ -446,7 +446,7 @@ ALTER TABLE ONLY public."tbTag"
     ADD CONSTRAINT "tbTag_SubmittingUser_tbUser_Uuid_fk" FOREIGN KEY ("SubmittingUser") REFERENCES public."tbUser"("Uuid");
 
 
--- Completed on 2021-09-23 16:13:17 EDT
+-- Completed on 2021-09-23 16:19:41 EDT
 
 --
 -- PostgreSQL database dump complete
