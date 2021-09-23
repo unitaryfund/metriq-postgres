@@ -5,7 +5,7 @@
 -- Dumped from database version 13.4 (Ubuntu 13.4-1.pgdg20.04+1)
 -- Dumped by pg_dump version 13.4 (Ubuntu 13.4-1.pgdg20.04+1)
 
--- Started on 2021-09-23 16:06:39 EDT
+-- Started on 2021-09-23 16:13:17 EDT
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -204,12 +204,12 @@ ALTER TABLE ONLY public."tbRef_Submission_Method"
 
 
 --
--- TOC entry 2920 (class 2606 OID 16470)
+-- TOC entry 2920 (class 2606 OID 16547)
 -- Name: tbRef_Submission_Method tbRef_Submission_Method_unique; Type: CONSTRAINT; Schema: public; Owner: metriq
 --
 
 ALTER TABLE ONLY public."tbRef_Submission_Method"
-    ADD CONSTRAINT "tbRef_Submission_Method_unique" UNIQUE ("Submission", "Method");
+    ADD CONSTRAINT "tbRef_Submission_Method_unique" UNIQUE ("Submission", "Method", "DeletedDate");
 
 
 --
@@ -222,12 +222,12 @@ ALTER TABLE ONLY public."tbRef_Submission_Tag"
 
 
 --
--- TOC entry 2928 (class 2606 OID 16482)
+-- TOC entry 2928 (class 2606 OID 16549)
 -- Name: tbRef_Submission_Tag tbRef_Submission_Tag_unique; Type: CONSTRAINT; Schema: public; Owner: metriq
 --
 
 ALTER TABLE ONLY public."tbRef_Submission_Tag"
-    ADD CONSTRAINT "tbRef_Submission_Tag_unique" UNIQUE ("Submission", "Tag");
+    ADD CONSTRAINT "tbRef_Submission_Tag_unique" UNIQUE ("Submission", "Tag", "DeletedDate");
 
 
 --
@@ -240,12 +240,12 @@ ALTER TABLE ONLY public."tbRef_Submission_Task"
 
 
 --
--- TOC entry 2924 (class 2606 OID 16499)
+-- TOC entry 2924 (class 2606 OID 16551)
 -- Name: tbRef_Submission_Task tbRef_Submission_Task_unique; Type: CONSTRAINT; Schema: public; Owner: metriq
 --
 
 ALTER TABLE ONLY public."tbRef_Submission_Task"
-    ADD CONSTRAINT "tbRef_Submission_Task_unique" UNIQUE ("Submission", "Task");
+    ADD CONSTRAINT "tbRef_Submission_Task_unique" UNIQUE ("Submission", "Task", "DeletedDate");
 
 
 --
@@ -446,7 +446,7 @@ ALTER TABLE ONLY public."tbTag"
     ADD CONSTRAINT "tbTag_SubmittingUser_tbUser_Uuid_fk" FOREIGN KEY ("SubmittingUser") REFERENCES public."tbUser"("Uuid");
 
 
--- Completed on 2021-09-23 16:06:39 EDT
+-- Completed on 2021-09-23 16:13:17 EDT
 
 --
 -- PostgreSQL database dump complete
