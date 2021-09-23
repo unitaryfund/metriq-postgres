@@ -5,7 +5,7 @@
 -- Dumped from database version 13.4 (Ubuntu 13.4-1.pgdg20.04+1)
 -- Dumped by pg_dump version 13.4 (Ubuntu 13.4-1.pgdg20.04+1)
 
--- Started on 2021-09-23 15:55:46 EDT
+-- Started on 2021-09-23 16:06:39 EDT
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -66,7 +66,8 @@ CREATE TABLE public."tbRef_Submission_Tag" (
     "SubmittingUser" uuid NOT NULL,
     "Submission" uuid NOT NULL,
     "Tag" uuid NOT NULL,
-    "DeletedDate" date
+    "DeletedDate" date,
+    "SubmittedDate" date NOT NULL
 );
 
 
@@ -82,7 +83,8 @@ CREATE TABLE public."tbRef_Submission_Task" (
     "SubmittingUser" uuid NOT NULL,
     "Submission" uuid NOT NULL,
     "Task" uuid NOT NULL,
-    "DeletedDate" date
+    "DeletedDate" date,
+    "SubmittedDate" date NOT NULL
 );
 
 
@@ -136,7 +138,9 @@ ALTER TABLE public."tbSubmission" OWNER TO metriq;
 
 CREATE TABLE public."tbTag" (
     "Uuid" uuid DEFAULT gen_random_uuid() NOT NULL,
-    "Name" text NOT NULL
+    "Name" text NOT NULL,
+    "SubmittingUser" uuid NOT NULL,
+    "SubmittedDate" date NOT NULL
 );
 
 
@@ -317,7 +321,7 @@ ALTER TABLE ONLY public."tbUser"
 
 
 --
--- TOC entry 2933 (class 2606 OID 16459)
+-- TOC entry 2934 (class 2606 OID 16459)
 -- Name: tbRef_Submission_Method tbRef_Submission_Method_Method_tbMethod_Uuid_fk; Type: FK CONSTRAINT; Schema: public; Owner: metriq
 --
 
@@ -326,7 +330,7 @@ ALTER TABLE ONLY public."tbRef_Submission_Method"
 
 
 --
--- TOC entry 2934 (class 2606 OID 16454)
+-- TOC entry 2935 (class 2606 OID 16454)
 -- Name: tbRef_Submission_Method tbRef_Submission_Method_Submission_tbSubmission_Uuid_fk; Type: FK CONSTRAINT; Schema: public; Owner: metriq
 --
 
@@ -335,7 +339,7 @@ ALTER TABLE ONLY public."tbRef_Submission_Method"
 
 
 --
--- TOC entry 2932 (class 2606 OID 16464)
+-- TOC entry 2933 (class 2606 OID 16464)
 -- Name: tbRef_Submission_Method tbRef_Submission_Method_SubmittingUser_tbUser_Uuid_fk; Type: FK CONSTRAINT; Schema: public; Owner: metriq
 --
 
@@ -344,7 +348,7 @@ ALTER TABLE ONLY public."tbRef_Submission_Method"
 
 
 --
--- TOC entry 2938 (class 2606 OID 16488)
+-- TOC entry 2939 (class 2606 OID 16488)
 -- Name: tbRef_Submission_Tag tbRef_Submission_Tag_Submission_tbSubmission_Uuid_fk; Type: FK CONSTRAINT; Schema: public; Owner: metriq
 --
 
@@ -353,7 +357,7 @@ ALTER TABLE ONLY public."tbRef_Submission_Tag"
 
 
 --
--- TOC entry 2939 (class 2606 OID 16483)
+-- TOC entry 2940 (class 2606 OID 16483)
 -- Name: tbRef_Submission_Tag tbRef_Submission_Tag_SubmittingUser_tbUser_Uuid_fk; Type: FK CONSTRAINT; Schema: public; Owner: metriq
 --
 
@@ -362,7 +366,7 @@ ALTER TABLE ONLY public."tbRef_Submission_Tag"
 
 
 --
--- TOC entry 2940 (class 2606 OID 16493)
+-- TOC entry 2941 (class 2606 OID 16493)
 -- Name: tbRef_Submission_Tag tbRef_Submission_Tag_Tag_tbTag_Uuid_fk; Type: FK CONSTRAINT; Schema: public; Owner: metriq
 --
 
@@ -371,7 +375,7 @@ ALTER TABLE ONLY public."tbRef_Submission_Tag"
 
 
 --
--- TOC entry 2935 (class 2606 OID 16505)
+-- TOC entry 2936 (class 2606 OID 16505)
 -- Name: tbRef_Submission_Task tbRef_Submission_Task_Submission_tbSubmission_Uuid_fk; Type: FK CONSTRAINT; Schema: public; Owner: metriq
 --
 
@@ -380,7 +384,7 @@ ALTER TABLE ONLY public."tbRef_Submission_Task"
 
 
 --
--- TOC entry 2936 (class 2606 OID 16500)
+-- TOC entry 2937 (class 2606 OID 16500)
 -- Name: tbRef_Submission_Task tbRef_Submission_Task_SubmittingUser_tbUser_Uuid_fk; Type: FK CONSTRAINT; Schema: public; Owner: metriq
 --
 
@@ -389,7 +393,7 @@ ALTER TABLE ONLY public."tbRef_Submission_Task"
 
 
 --
--- TOC entry 2937 (class 2606 OID 16510)
+-- TOC entry 2938 (class 2606 OID 16510)
 -- Name: tbRef_Submission_Task tbRef_Submission_Task_Task_tbTask_Uuid_fk; Type: FK CONSTRAINT; Schema: public; Owner: metriq
 --
 
@@ -398,7 +402,7 @@ ALTER TABLE ONLY public."tbRef_Submission_Task"
 
 
 --
--- TOC entry 2941 (class 2606 OID 16529)
+-- TOC entry 2942 (class 2606 OID 16529)
 -- Name: tbResult tbResult_RefSubmissionMethod_tbRef_Submission_Method_Uuid_fk; Type: FK CONSTRAINT; Schema: public; Owner: metriq
 --
 
@@ -407,7 +411,7 @@ ALTER TABLE ONLY public."tbResult"
 
 
 --
--- TOC entry 2942 (class 2606 OID 16524)
+-- TOC entry 2943 (class 2606 OID 16524)
 -- Name: tbResult tbResult_RefSubmissionTask_tbRef_Submission_Task_Uuid_fk; Type: FK CONSTRAINT; Schema: public; Owner: metriq
 --
 
@@ -416,7 +420,7 @@ ALTER TABLE ONLY public."tbResult"
 
 
 --
--- TOC entry 2943 (class 2606 OID 16534)
+-- TOC entry 2944 (class 2606 OID 16534)
 -- Name: tbResult tbResult_SubmittingUser_tbUser_Uuid_fk; Type: FK CONSTRAINT; Schema: public; Owner: metriq
 --
 
@@ -433,7 +437,16 @@ ALTER TABLE ONLY public."tbSubmission"
     ADD CONSTRAINT "tbSubmission_SubmittingUser_tbUser_Uuid_fk" FOREIGN KEY ("Uuid") REFERENCES public."tbUser"("Uuid");
 
 
--- Completed on 2021-09-23 15:55:46 EDT
+--
+-- TOC entry 2932 (class 2606 OID 16541)
+-- Name: tbTag tbTag_SubmittingUser_tbUser_Uuid_fk; Type: FK CONSTRAINT; Schema: public; Owner: metriq
+--
+
+ALTER TABLE ONLY public."tbTag"
+    ADD CONSTRAINT "tbTag_SubmittingUser_tbUser_Uuid_fk" FOREIGN KEY ("SubmittingUser") REFERENCES public."tbUser"("Uuid");
+
+
+-- Completed on 2021-09-23 16:06:39 EDT
 
 --
 -- PostgreSQL database dump complete
