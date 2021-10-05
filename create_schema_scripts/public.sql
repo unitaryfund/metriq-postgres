@@ -5,7 +5,7 @@
 -- Dumped from database version 13.4 (Ubuntu 13.4-4.pgdg20.04+1)
 -- Dumped by pg_dump version 14.0 (Ubuntu 14.0-1.pgdg20.04+1)
 
--- Started on 2021-10-05 14:14:00 EDT
+-- Started on 2021-10-05 15:17:25 EDT
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -31,8 +31,8 @@ CREATE TABLE public.likes (
     id integer NOT NULL,
     "createdAt" timestamp with time zone NOT NULL,
     "updatedAt" timestamp with time zone NOT NULL,
-    "userId" integer,
-    "submissionId" integer
+    "userId" integer NOT NULL,
+    "submissionId" integer NOT NULL
 );
 
 
@@ -75,7 +75,7 @@ CREATE TABLE public.methods (
     description text NOT NULL,
     "createdAt" timestamp with time zone NOT NULL,
     "updatedAt" timestamp with time zone NOT NULL,
-    "userId" integer
+    "userId" integer NOT NULL
 );
 
 
@@ -119,7 +119,7 @@ CREATE TABLE public.results (
     "createdAt" timestamp with time zone NOT NULL,
     "updatedAt" timestamp with time zone NOT NULL,
     "deletedAt" timestamp with time zone,
-    "userId" integer,
+    "userId" integer NOT NULL,
     "submissionMethodRefId" integer NOT NULL,
     "submissionTaskRefId" integer NOT NULL
 );
@@ -162,9 +162,9 @@ CREATE TABLE public."submissionMethodRefs" (
     "createdAt" timestamp with time zone NOT NULL,
     "updatedAt" timestamp with time zone NOT NULL,
     "deletedAt" timestamp with time zone,
-    "userId" integer,
-    "submissionId" integer,
-    "methodId" integer
+    "userId" integer NOT NULL,
+    "submissionId" integer NOT NULL,
+    "methodId" integer NOT NULL
 );
 
 
@@ -205,9 +205,9 @@ CREATE TABLE public."submissionTagRefs" (
     "createdAt" timestamp with time zone NOT NULL,
     "updatedAt" timestamp with time zone NOT NULL,
     "deletedAt" timestamp with time zone,
-    "userId" integer,
-    "submissionId" integer,
-    "tagId" integer
+    "userId" integer NOT NULL,
+    "submissionId" integer NOT NULL,
+    "tagId" integer NOT NULL
 );
 
 
@@ -248,9 +248,9 @@ CREATE TABLE public."submissionTaskRefs" (
     "createdAt" timestamp with time zone NOT NULL,
     "updatedAt" timestamp with time zone NOT NULL,
     "deletedAt" timestamp with time zone,
-    "userId" integer,
-    "submissionId" integer,
-    "taskId" integer
+    "userId" integer NOT NULL,
+    "submissionId" integer NOT NULL,
+    "taskId" integer NOT NULL
 );
 
 
@@ -296,7 +296,7 @@ CREATE TABLE public.submissions (
     "approvedAt" timestamp with time zone,
     "createdAt" timestamp with time zone NOT NULL,
     "updatedAt" timestamp with time zone NOT NULL,
-    "userId" integer
+    "userId" integer NOT NULL
 );
 
 
@@ -337,7 +337,7 @@ CREATE TABLE public.tags (
     name text NOT NULL,
     "createdAt" timestamp with time zone NOT NULL,
     "updatedAt" timestamp with time zone NOT NULL,
-    "userId" integer
+    "userId" integer NOT NULL
 );
 
 
@@ -380,7 +380,7 @@ CREATE TABLE public.tasks (
     description text NOT NULL,
     "createdAt" timestamp with time zone NOT NULL,
     "updatedAt" timestamp with time zone NOT NULL,
-    "userId" integer
+    "userId" integer NOT NULL
 );
 
 
@@ -835,7 +835,7 @@ ALTER TABLE ONLY public.tasks
     ADD CONSTRAINT "tasks_userId_fkey" FOREIGN KEY ("userId") REFERENCES public.users(id) ON UPDATE CASCADE ON DELETE SET NULL;
 
 
--- Completed on 2021-10-05 14:14:00 EDT
+-- Completed on 2021-10-05 15:17:25 EDT
 
 --
 -- PostgreSQL database dump complete
