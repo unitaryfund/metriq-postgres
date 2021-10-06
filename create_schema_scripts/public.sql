@@ -5,7 +5,7 @@
 -- Dumped from database version 13.4 (Ubuntu 13.4-4.pgdg20.04+1)
 -- Dumped by pg_dump version 14.0 (Ubuntu 14.0-1.pgdg20.04+1)
 
--- Started on 2021-10-05 15:17:25 EDT
+-- Started on 2021-10-06 15:18:10 EDT
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -55,7 +55,7 @@ CREATE SEQUENCE public.likes_id_seq
 ALTER TABLE public.likes_id_seq OWNER TO metriq;
 
 --
--- TOC entry 3108 (class 0 OID 0)
+-- TOC entry 3110 (class 0 OID 0)
 -- Dependencies: 214
 -- Name: likes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: metriq
 --
@@ -98,7 +98,7 @@ CREATE SEQUENCE public.methods_id_seq
 ALTER TABLE public.methods_id_seq OWNER TO metriq;
 
 --
--- TOC entry 3109 (class 0 OID 0)
+-- TOC entry 3111 (class 0 OID 0)
 -- Dependencies: 204
 -- Name: methods_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: metriq
 --
@@ -144,7 +144,7 @@ CREATE SEQUENCE public.results_id_seq
 ALTER TABLE public.results_id_seq OWNER TO metriq;
 
 --
--- TOC entry 3110 (class 0 OID 0)
+-- TOC entry 3112 (class 0 OID 0)
 -- Dependencies: 210
 -- Name: results_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: metriq
 --
@@ -187,7 +187,7 @@ CREATE SEQUENCE public."submissionMethodRefs_id_seq"
 ALTER TABLE public."submissionMethodRefs_id_seq" OWNER TO metriq;
 
 --
--- TOC entry 3111 (class 0 OID 0)
+-- TOC entry 3113 (class 0 OID 0)
 -- Dependencies: 211
 -- Name: submissionMethodRefs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: metriq
 --
@@ -230,7 +230,7 @@ CREATE SEQUENCE public."submissionTagRefs_id_seq"
 ALTER TABLE public."submissionTagRefs_id_seq" OWNER TO metriq;
 
 --
--- TOC entry 3112 (class 0 OID 0)
+-- TOC entry 3114 (class 0 OID 0)
 -- Dependencies: 215
 -- Name: submissionTagRefs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: metriq
 --
@@ -273,7 +273,7 @@ CREATE SEQUENCE public."submissionTaskRefs_id_seq"
 ALTER TABLE public."submissionTaskRefs_id_seq" OWNER TO metriq;
 
 --
--- TOC entry 3113 (class 0 OID 0)
+-- TOC entry 3115 (class 0 OID 0)
 -- Dependencies: 218
 -- Name: submissionTaskRefs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: metriq
 --
@@ -319,7 +319,7 @@ CREATE SEQUENCE public.submissions_id_seq
 ALTER TABLE public.submissions_id_seq OWNER TO metriq;
 
 --
--- TOC entry 3114 (class 0 OID 0)
+-- TOC entry 3116 (class 0 OID 0)
 -- Dependencies: 206
 -- Name: submissions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: metriq
 --
@@ -360,7 +360,7 @@ CREATE SEQUENCE public.tags_id_seq
 ALTER TABLE public.tags_id_seq OWNER TO metriq;
 
 --
--- TOC entry 3115 (class 0 OID 0)
+-- TOC entry 3117 (class 0 OID 0)
 -- Dependencies: 202
 -- Name: tags_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: metriq
 --
@@ -380,7 +380,8 @@ CREATE TABLE public.tasks (
     description text NOT NULL,
     "createdAt" timestamp with time zone NOT NULL,
     "updatedAt" timestamp with time zone NOT NULL,
-    "userId" integer NOT NULL
+    "userId" integer NOT NULL,
+    "taskId" integer
 );
 
 
@@ -403,7 +404,7 @@ CREATE SEQUENCE public.tasks_id_seq
 ALTER TABLE public.tasks_id_seq OWNER TO metriq;
 
 --
--- TOC entry 3116 (class 0 OID 0)
+-- TOC entry 3118 (class 0 OID 0)
 -- Dependencies: 207
 -- Name: tasks_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: metriq
 --
@@ -451,7 +452,7 @@ CREATE SEQUENCE public.users_id_seq
 ALTER TABLE public.users_id_seq OWNER TO metriq;
 
 --
--- TOC entry 3117 (class 0 OID 0)
+-- TOC entry 3119 (class 0 OID 0)
 -- Dependencies: 200
 -- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: metriq
 --
@@ -540,7 +541,7 @@ ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_
 
 
 --
--- TOC entry 2944 (class 2606 OID 17980)
+-- TOC entry 2945 (class 2606 OID 17980)
 -- Name: likes likes_pkey; Type: CONSTRAINT; Schema: public; Owner: metriq
 --
 
@@ -549,7 +550,7 @@ ALTER TABLE ONLY public.likes
 
 
 --
--- TOC entry 2946 (class 2606 OID 18032)
+-- TOC entry 2947 (class 2606 OID 18032)
 -- Name: likes likes_submissionId_userId_unique; Type: CONSTRAINT; Schema: public; Owner: metriq
 --
 
@@ -567,7 +568,7 @@ ALTER TABLE ONLY public.methods
 
 
 --
--- TOC entry 2938 (class 2606 OID 17941)
+-- TOC entry 2939 (class 2606 OID 17941)
 -- Name: results results_pkey; Type: CONSTRAINT; Schema: public; Owner: metriq
 --
 
@@ -576,7 +577,7 @@ ALTER TABLE ONLY public.results
 
 
 --
--- TOC entry 2940 (class 2606 OID 17939)
+-- TOC entry 2941 (class 2606 OID 17939)
 -- Name: submissionMethodRefs submissionMethodRefs_pkey; Type: CONSTRAINT; Schema: public; Owner: metriq
 --
 
@@ -585,7 +586,7 @@ ALTER TABLE ONLY public."submissionMethodRefs"
 
 
 --
--- TOC entry 2942 (class 2606 OID 18034)
+-- TOC entry 2943 (class 2606 OID 18034)
 -- Name: submissionMethodRefs submissionMethodRefs_submissionId_methodId_unique; Type: CONSTRAINT; Schema: public; Owner: metriq
 --
 
@@ -594,7 +595,7 @@ ALTER TABLE ONLY public."submissionMethodRefs"
 
 
 --
--- TOC entry 2948 (class 2606 OID 17982)
+-- TOC entry 2949 (class 2606 OID 17982)
 -- Name: submissionTagRefs submissionTagRefs_pkey; Type: CONSTRAINT; Schema: public; Owner: metriq
 --
 
@@ -603,7 +604,7 @@ ALTER TABLE ONLY public."submissionTagRefs"
 
 
 --
--- TOC entry 2950 (class 2606 OID 18036)
+-- TOC entry 2951 (class 2606 OID 18036)
 -- Name: submissionTagRefs submissionTagRefs_submissionId_tagId_unique; Type: CONSTRAINT; Schema: public; Owner: metriq
 --
 
@@ -612,7 +613,7 @@ ALTER TABLE ONLY public."submissionTagRefs"
 
 
 --
--- TOC entry 2952 (class 2606 OID 18015)
+-- TOC entry 2953 (class 2606 OID 18015)
 -- Name: submissionTaskRefs submissionTaskRefs_pkey; Type: CONSTRAINT; Schema: public; Owner: metriq
 --
 
@@ -621,7 +622,7 @@ ALTER TABLE ONLY public."submissionTaskRefs"
 
 
 --
--- TOC entry 2954 (class 2606 OID 18038)
+-- TOC entry 2955 (class 2606 OID 18038)
 -- Name: submissionTaskRefs submissionTaskRefs_submissionId_taskId_unique; Type: CONSTRAINT; Schema: public; Owner: metriq
 --
 
@@ -648,7 +649,7 @@ ALTER TABLE ONLY public.tags
 
 
 --
--- TOC entry 2935 (class 2606 OID 17912)
+-- TOC entry 2936 (class 2606 OID 17912)
 -- Name: tasks tasks_pkey; Type: CONSTRAINT; Schema: public; Owner: metriq
 --
 
@@ -666,7 +667,7 @@ ALTER TABLE ONLY public.users
 
 
 --
--- TOC entry 2936 (class 1259 OID 18049)
+-- TOC entry 2937 (class 1259 OID 18049)
 -- Name: fki_results_submissionTaskRefId_fkey; Type: INDEX; Schema: public; Owner: metriq
 --
 
@@ -674,7 +675,15 @@ CREATE INDEX "fki_results_submissionTaskRefId_fkey" ON public.results USING btre
 
 
 --
--- TOC entry 2966 (class 2606 OID 17988)
+-- TOC entry 2934 (class 1259 OID 18056)
+-- Name: fki_tasks_tasksId_fkey; Type: INDEX; Schema: public; Owner: metriq
+--
+
+CREATE INDEX "fki_tasks_tasksId_fkey" ON public.tasks USING btree ("taskId");
+
+
+--
+-- TOC entry 2968 (class 2606 OID 17988)
 -- Name: likes likes_submissionId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: metriq
 --
 
@@ -683,7 +692,7 @@ ALTER TABLE ONLY public.likes
 
 
 --
--- TOC entry 2965 (class 2606 OID 17983)
+-- TOC entry 2967 (class 2606 OID 17983)
 -- Name: likes likes_userId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: metriq
 --
 
@@ -692,7 +701,7 @@ ALTER TABLE ONLY public.likes
 
 
 --
--- TOC entry 2956 (class 2606 OID 17904)
+-- TOC entry 2957 (class 2606 OID 17904)
 -- Name: methods methods_userId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: metriq
 --
 
@@ -701,7 +710,7 @@ ALTER TABLE ONLY public.methods
 
 
 --
--- TOC entry 2960 (class 2606 OID 17962)
+-- TOC entry 2962 (class 2606 OID 17962)
 -- Name: results results_submissionMethodRefId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: metriq
 --
 
@@ -710,7 +719,7 @@ ALTER TABLE ONLY public.results
 
 
 --
--- TOC entry 2961 (class 2606 OID 18044)
+-- TOC entry 2963 (class 2606 OID 18044)
 -- Name: results results_submissionTaskRefId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: metriq
 --
 
@@ -719,7 +728,7 @@ ALTER TABLE ONLY public.results
 
 
 --
--- TOC entry 2959 (class 2606 OID 17957)
+-- TOC entry 2961 (class 2606 OID 17957)
 -- Name: results results_userId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: metriq
 --
 
@@ -728,7 +737,7 @@ ALTER TABLE ONLY public.results
 
 
 --
--- TOC entry 2964 (class 2606 OID 17952)
+-- TOC entry 2966 (class 2606 OID 17952)
 -- Name: submissionMethodRefs submissionMethodRefs_methodId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: metriq
 --
 
@@ -737,7 +746,7 @@ ALTER TABLE ONLY public."submissionMethodRefs"
 
 
 --
--- TOC entry 2963 (class 2606 OID 17947)
+-- TOC entry 2965 (class 2606 OID 17947)
 -- Name: submissionMethodRefs submissionMethodRefs_submissionId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: metriq
 --
 
@@ -746,7 +755,7 @@ ALTER TABLE ONLY public."submissionMethodRefs"
 
 
 --
--- TOC entry 2962 (class 2606 OID 17942)
+-- TOC entry 2964 (class 2606 OID 17942)
 -- Name: submissionMethodRefs submissionMethodRefs_userId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: metriq
 --
 
@@ -755,7 +764,7 @@ ALTER TABLE ONLY public."submissionMethodRefs"
 
 
 --
--- TOC entry 2968 (class 2606 OID 17998)
+-- TOC entry 2970 (class 2606 OID 17998)
 -- Name: submissionTagRefs submissionTagRefs_submissionId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: metriq
 --
 
@@ -764,7 +773,7 @@ ALTER TABLE ONLY public."submissionTagRefs"
 
 
 --
--- TOC entry 2969 (class 2606 OID 18003)
+-- TOC entry 2971 (class 2606 OID 18003)
 -- Name: submissionTagRefs submissionTagRefs_tagId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: metriq
 --
 
@@ -773,7 +782,7 @@ ALTER TABLE ONLY public."submissionTagRefs"
 
 
 --
--- TOC entry 2967 (class 2606 OID 17993)
+-- TOC entry 2969 (class 2606 OID 17993)
 -- Name: submissionTagRefs submissionTagRefs_userId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: metriq
 --
 
@@ -782,7 +791,7 @@ ALTER TABLE ONLY public."submissionTagRefs"
 
 
 --
--- TOC entry 2971 (class 2606 OID 18021)
+-- TOC entry 2973 (class 2606 OID 18021)
 -- Name: submissionTaskRefs submissionTaskRefs_submissionId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: metriq
 --
 
@@ -791,7 +800,7 @@ ALTER TABLE ONLY public."submissionTaskRefs"
 
 
 --
--- TOC entry 2972 (class 2606 OID 18026)
+-- TOC entry 2974 (class 2606 OID 18026)
 -- Name: submissionTaskRefs submissionTaskRefs_taskId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: metriq
 --
 
@@ -800,7 +809,7 @@ ALTER TABLE ONLY public."submissionTaskRefs"
 
 
 --
--- TOC entry 2970 (class 2606 OID 18016)
+-- TOC entry 2972 (class 2606 OID 18016)
 -- Name: submissionTaskRefs submissionTaskRefs_userId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: metriq
 --
 
@@ -809,7 +818,7 @@ ALTER TABLE ONLY public."submissionTaskRefs"
 
 
 --
--- TOC entry 2957 (class 2606 OID 17913)
+-- TOC entry 2958 (class 2606 OID 17913)
 -- Name: submissions submissions_userId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: metriq
 --
 
@@ -818,7 +827,7 @@ ALTER TABLE ONLY public.submissions
 
 
 --
--- TOC entry 2955 (class 2606 OID 17841)
+-- TOC entry 2956 (class 2606 OID 17841)
 -- Name: tags tags_userId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: metriq
 --
 
@@ -827,7 +836,16 @@ ALTER TABLE ONLY public.tags
 
 
 --
--- TOC entry 2958 (class 2606 OID 17918)
+-- TOC entry 2960 (class 2606 OID 18051)
+-- Name: tasks tasks_tasksId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: metriq
+--
+
+ALTER TABLE ONLY public.tasks
+    ADD CONSTRAINT "tasks_tasksId_fkey" FOREIGN KEY ("taskId") REFERENCES public.tasks(id);
+
+
+--
+-- TOC entry 2959 (class 2606 OID 17918)
 -- Name: tasks tasks_userId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: metriq
 --
 
@@ -835,7 +853,7 @@ ALTER TABLE ONLY public.tasks
     ADD CONSTRAINT "tasks_userId_fkey" FOREIGN KEY ("userId") REFERENCES public.users(id) ON UPDATE CASCADE ON DELETE SET NULL;
 
 
--- Completed on 2021-10-05 15:17:25 EDT
+-- Completed on 2021-10-06 15:18:10 EDT
 
 --
 -- PostgreSQL database dump complete
