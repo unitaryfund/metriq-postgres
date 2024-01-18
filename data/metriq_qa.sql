@@ -395,7 +395,8 @@ CREATE TABLE public.platforms (
     "userId" integer NOT NULL,
     "platformId" integer,
     "providerId" integer DEFAULT 17 NOT NULL,
-    "architectureId" integer DEFAULT 7 NOT NULL
+    "architectureId" integer DEFAULT 7 NOT NULL,
+    "isDataSet" boolean DEFAULT false NOT NULL
 );
 
 
@@ -524,7 +525,8 @@ CREATE TABLE public.results (
     "submissionPlatformRefId" integer,
     "qubitCount" integer,
     "circuitDepth" integer,
-    shots integer
+    shots integer,
+    "submissionDataSetRefId" integer
 );
 
 
@@ -1184,6 +1186,7 @@ COPY public."SequelizeMeta" (name) FROM stdin;
 014-823_TagNameNormal.js
 015-223_PlatformsMetadata.js
 016-223_PlatformsMetadata.js
+017-890_DataSets.js
 \.
 
 
@@ -1495,91 +1498,91 @@ COPY public."platformSubscriptions" (id, "updatedAt", "createdAt", "userId", "pl
 -- Data for Name: platforms; Type: TABLE DATA; Schema: public; Owner: metriq
 --
 
-COPY public.platforms (id, "updatedAt", "createdAt", name, "fullName", description, "userId", "platformId", "providerId", "architectureId") FROM stdin;
-13	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	ibmq-hanoi	ibmq-hanoi		1	1	17	7
-14	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	ibmq-cairo	ibmq-cairo		1	1	17	7
-15	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	ibmq-auckland	ibmq-auckland		1	1	17	7
-16	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	ibmq-washington	ibmq-washington		1	1	17	7
-17	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	ibmq-sydney	ibmq-sydney		1	1	17	7
-18	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	ibmq-brooklyn	ibmq-brooklyn		1	1	17	7
-19	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	ibmq-guadalupe	ibmq-guadalupe		1	1	17	7
-20	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	ibmq-lagos	ibmq-lagos		1	1	17	7
-21	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	ibmq-casablanca	ibmq-casablanca		1	1	17	7
-22	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	ibmq-perth	ibmq-perth		1	1	17	7
-23	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	ibmq-manila	ibmq-manila		1	1	17	7
-24	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	ibmq-jakarta	ibmq-jakarta		1	1	17	7
-25	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	ibmq-quito	ibmq-quito		1	1	17	7
-26	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	ibmq-belem	ibmq-belem		1	1	17	7
-27	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	ibmq-lima	ibmq-lima		1	1	17	7
-28	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	20-Mode Universal Quantum Photonic Processor	20-Mode Universal Quantum Photonic Processor		1	\N	17	7
-29	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	Kerr parametric oscillator	Kerr parametric oscillator		1	\N	17	7
-30	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	Neutral-atom quantum processor	Neutral-atom quantum processor		1	\N	17	7
-31	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	Rigetti Aspen-4	Rigetti Aspen-4		1	6	17	7
-32	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	Silicon quantum dot processor	Silicon quantum dot processor		1	\N	17	7
-33	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	SpinQ	SpinQ		1	\N	17	7
-34	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	SpinQ Triangulum	SpinQ Triangulum		1	33	17	7
-35	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	Summit	Summit Supercomputer		1	\N	17	7
-36	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	Trapped-ion	Trapped-ion		1	\N	17	7
-37	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	Trapped-ion QCCD	Trapped-ion QCCD		1	\N	17	7
-38	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	Zuchongzhi	Zuchongzhi		1	\N	17	7
-39	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	ibmq-almaden	ibmq-almaden		1	1	17	7
-40	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	ibmq-santiago	ibmq-santiago		1	1	17	7
-41	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	ibmq-valencia	ibmq-valencia		1	1	17	7
-42	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	QTensor -  NVIDIA DGX-2 server	QTensor -  NVIDIA DGX-2 server	Test system for "Performance Evaluation and Acceleration of the QTensor Quantum Circuit Simulator on GPUs"	1	\N	17	7
-43	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	QTensor (Torch_CPU) - NVIDIA DGX-2 server	QTensor (Torch_CPU) - NVIDIA DGX-2 server		1	42	17	7
-48	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	QTensor (NumPy + CuPy) - NVIDIA DGX-2 server	QTensor (NumPy + CuPy) - NVIDIA DGX-2 server		1	42	17	7
-44	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	QTensor (Numpy) - NVIDIA DGX-2 server	QTensor (Numpy) - NVIDIA DGX-2 server		1	42	17	7
-45	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	QTensor (CuPy) - NVIDIA DGX-2 server	QTensor (CuPy) - NVIDIA DGX-2 server		1	42	17	7
-46	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	QTensor (Torch_GPU) - NVIDIA DGX-2 server	QTensor (Torch_GPU) - NVIDIA DGX-2 server		1	42	17	7
-47	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	QTensor (Torch_CPU + Torch_GPU) - NVIDIA DGX-2 server	QTensor (Torch_CPU + Torch_GPU) - NVIDIA DGX-2 server		1	42	17	7
-49	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	QTensor (NumPy_Merged) - NVIDIA DGX-2 server	QTensor (NumPy_Merged) - NVIDIA DGX-2 server		1	42	17	7
-50	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	QTensor (CuPy_Merged) - NVIDIA DGX-2 server	QTensor (CuPy_Merged) - NVIDIA DGX-2 server		1	42	17	7
-51	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	QTensor (NumPy_Merged + CuPy_Merged) - NVIDIA DGX-2 server	QTensor (NumPy_Merged + CuPy_Merged) - NVIDIA DGX-2 server		1	42	17	7
-52	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	D-Wave	D-Wave		1	\N	17	7
-53	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	DW2000Q	DW2000Q		1	52	17	7
-54	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	DWAdv	DWAdv		1	52	17	7
-55	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	Neutral atom programmable quantum simulator	Neutral atom programmable quantum simulator	A programmable quantum simulator\nbased on deterministically prepared two-dimensional arrays of neutral atoms, featuring strong interactions controlled via coherent atomic excitation into Rydberg states	1	\N	17	7
-56	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	ibmq-prague	ibmq-prague		1	1	17	7
-57	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	ionq	ionq	IonQ hasn't named their processors yet so eventually this should be updated with the name.	1	36	17	7
-58	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	ibmq simulator	ibmq simulator		1	1	17	7
-59	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	Superconducting Circuit Qubits	Superconducting Circuit Qubits		1	\N	17	7
-60	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	Transmon	Transmon		1	59	17	7
-61	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	Superconducting chip with three transmons and two joint readout resonators	Superconducting chip with three transmons and two joint readout resonators		1	60	17	7
-75	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	D-Wave 2X	D-Wave 2X		1	52	17	7
-1	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	ibmq	ibmq	IBM Quantum	1	\N	17	7
-2	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	ibmq-bogota	ibmq-bogota		1	1	17	7
-3	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	ibmq-toronto	ibmq-toronto		1	1	17	7
-4	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	Qrack - Alienware m17	Qrack - Alienware m17	Customized Alienware m17 used in vm6502q/qrack benchmarks	1	\N	17	7
-5	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	Rigetti	Rigetti		1	\N	17	7
-6	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	Rigetti Aspen	Rigetti Aspen		1	5	17	7
-7	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	Rigetti Aspen M-1	Rigetti Aspen M-1		1	6	17	7
-8	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	Rigetti Aspen-11	Rigetti Aspen-11		1	6	17	7
-9	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	oqc	Oxford Quantum Circuits		1	\N	17	7
-10	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	oqc-lucy	oqc-lucy		1	9	17	7
-11	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	ibmq-montreal	ibmq-montreal		1	1	17	7
-12	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	ibmq-mumbai	ibmq-mumbai		1	1	17	7
-62	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	Honeywell System Model H1	Honeywell System Model H1	Honeywell System Model H1, ion-based quantum processor.	1	\N	17	7
-63	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	Sycamore	Google Sycamore		1	\N	17	7
-64	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	Rigetti 16Q Aspen-1 	Rigetti		1	5	17	7
-65	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	Rochester	Rochester		1	1	17	7
-66	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	ibmq-tokyo	ibmq-tokyo		1	1	17	7
-67	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	ibmq-johannesburg	ibmq-johannesburg		1	1	17	7
-68	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	ibmq-cambridge	ibmq-cambridge		1	1	17	7
-69	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	ibmq-rochester	ibmq-rochester		1	1	17	7
-70	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	ibmq-boeblingen	ibmq-boeblingen		1	1	17	7
-71	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	ibmq-manhattan	ibmq-manhattan		1	1	17	7
-72	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	Intel® Core™ i5-6200U	Intel® Core™ i5-6200U		1	\N	17	7
-73	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	PyZX	PyZX		1	\N	17	7
-74	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	Bruker AV-400	Bruker AV-400 spectrometer		1	\N	17	7
-76	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	ibmq-melbourne	IBMQ Melbourne		1	1	17	7
-77	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	NASA Pleiades	NASA Pleiades	HPC cluster	1	\N	17	7
-78	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	NASA Electra	NASA Electra	HPC cluster	1	\N	17	7
-79	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	ibmq-london	ibmq-london	5-qubit QPU	1	1	17	7
-80	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	Quantinuum System Model H1-1	Quantinuum System Model H1-1		1	\N	17	7
-81	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	Honeywell System Model H0	Honeywell System Model H0		1	\N	17	7
-82	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	Quantinuum System Model H1-2	Quantinuum System Model H1-2		1	\N	17	7
-83	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	TR-K80	AMD Threadripper + Tesla K80 24GB	Threadripper system with a Tesla K80 	1	\N	17	7
-84	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	Alibaba Cloud Quantum Development Platform	Alibaba Cloud Quantum Development Platform		1	\N	17	7
+COPY public.platforms (id, "updatedAt", "createdAt", name, "fullName", description, "userId", "platformId", "providerId", "architectureId", "isDataSet") FROM stdin;
+13	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	ibmq-hanoi	ibmq-hanoi		1	1	17	7	f
+14	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	ibmq-cairo	ibmq-cairo		1	1	17	7	f
+15	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	ibmq-auckland	ibmq-auckland		1	1	17	7	f
+16	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	ibmq-washington	ibmq-washington		1	1	17	7	f
+17	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	ibmq-sydney	ibmq-sydney		1	1	17	7	f
+18	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	ibmq-brooklyn	ibmq-brooklyn		1	1	17	7	f
+19	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	ibmq-guadalupe	ibmq-guadalupe		1	1	17	7	f
+20	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	ibmq-lagos	ibmq-lagos		1	1	17	7	f
+21	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	ibmq-casablanca	ibmq-casablanca		1	1	17	7	f
+22	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	ibmq-perth	ibmq-perth		1	1	17	7	f
+23	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	ibmq-manila	ibmq-manila		1	1	17	7	f
+24	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	ibmq-jakarta	ibmq-jakarta		1	1	17	7	f
+25	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	ibmq-quito	ibmq-quito		1	1	17	7	f
+26	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	ibmq-belem	ibmq-belem		1	1	17	7	f
+27	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	ibmq-lima	ibmq-lima		1	1	17	7	f
+28	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	20-Mode Universal Quantum Photonic Processor	20-Mode Universal Quantum Photonic Processor		1	\N	17	7	f
+29	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	Kerr parametric oscillator	Kerr parametric oscillator		1	\N	17	7	f
+30	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	Neutral-atom quantum processor	Neutral-atom quantum processor		1	\N	17	7	f
+31	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	Rigetti Aspen-4	Rigetti Aspen-4		1	6	17	7	f
+32	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	Silicon quantum dot processor	Silicon quantum dot processor		1	\N	17	7	f
+33	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	SpinQ	SpinQ		1	\N	17	7	f
+34	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	SpinQ Triangulum	SpinQ Triangulum		1	33	17	7	f
+35	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	Summit	Summit Supercomputer		1	\N	17	7	f
+36	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	Trapped-ion	Trapped-ion		1	\N	17	7	f
+37	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	Trapped-ion QCCD	Trapped-ion QCCD		1	\N	17	7	f
+38	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	Zuchongzhi	Zuchongzhi		1	\N	17	7	f
+39	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	ibmq-almaden	ibmq-almaden		1	1	17	7	f
+40	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	ibmq-santiago	ibmq-santiago		1	1	17	7	f
+41	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	ibmq-valencia	ibmq-valencia		1	1	17	7	f
+42	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	QTensor -  NVIDIA DGX-2 server	QTensor -  NVIDIA DGX-2 server	Test system for "Performance Evaluation and Acceleration of the QTensor Quantum Circuit Simulator on GPUs"	1	\N	17	7	f
+43	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	QTensor (Torch_CPU) - NVIDIA DGX-2 server	QTensor (Torch_CPU) - NVIDIA DGX-2 server		1	42	17	7	f
+48	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	QTensor (NumPy + CuPy) - NVIDIA DGX-2 server	QTensor (NumPy + CuPy) - NVIDIA DGX-2 server		1	42	17	7	f
+44	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	QTensor (Numpy) - NVIDIA DGX-2 server	QTensor (Numpy) - NVIDIA DGX-2 server		1	42	17	7	f
+45	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	QTensor (CuPy) - NVIDIA DGX-2 server	QTensor (CuPy) - NVIDIA DGX-2 server		1	42	17	7	f
+46	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	QTensor (Torch_GPU) - NVIDIA DGX-2 server	QTensor (Torch_GPU) - NVIDIA DGX-2 server		1	42	17	7	f
+47	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	QTensor (Torch_CPU + Torch_GPU) - NVIDIA DGX-2 server	QTensor (Torch_CPU + Torch_GPU) - NVIDIA DGX-2 server		1	42	17	7	f
+49	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	QTensor (NumPy_Merged) - NVIDIA DGX-2 server	QTensor (NumPy_Merged) - NVIDIA DGX-2 server		1	42	17	7	f
+50	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	QTensor (CuPy_Merged) - NVIDIA DGX-2 server	QTensor (CuPy_Merged) - NVIDIA DGX-2 server		1	42	17	7	f
+51	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	QTensor (NumPy_Merged + CuPy_Merged) - NVIDIA DGX-2 server	QTensor (NumPy_Merged + CuPy_Merged) - NVIDIA DGX-2 server		1	42	17	7	f
+52	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	D-Wave	D-Wave		1	\N	17	7	f
+53	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	DW2000Q	DW2000Q		1	52	17	7	f
+54	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	DWAdv	DWAdv		1	52	17	7	f
+55	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	Neutral atom programmable quantum simulator	Neutral atom programmable quantum simulator	A programmable quantum simulator\nbased on deterministically prepared two-dimensional arrays of neutral atoms, featuring strong interactions controlled via coherent atomic excitation into Rydberg states	1	\N	17	7	f
+56	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	ibmq-prague	ibmq-prague		1	1	17	7	f
+57	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	ionq	ionq	IonQ hasn't named their processors yet so eventually this should be updated with the name.	1	36	17	7	f
+58	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	ibmq simulator	ibmq simulator		1	1	17	7	f
+59	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	Superconducting Circuit Qubits	Superconducting Circuit Qubits		1	\N	17	7	f
+60	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	Transmon	Transmon		1	59	17	7	f
+61	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	Superconducting chip with three transmons and two joint readout resonators	Superconducting chip with three transmons and two joint readout resonators		1	60	17	7	f
+75	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	D-Wave 2X	D-Wave 2X		1	52	17	7	f
+1	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	ibmq	ibmq	IBM Quantum	1	\N	17	7	f
+2	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	ibmq-bogota	ibmq-bogota		1	1	17	7	f
+3	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	ibmq-toronto	ibmq-toronto		1	1	17	7	f
+4	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	Qrack - Alienware m17	Qrack - Alienware m17	Customized Alienware m17 used in vm6502q/qrack benchmarks	1	\N	17	7	f
+5	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	Rigetti	Rigetti		1	\N	17	7	f
+6	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	Rigetti Aspen	Rigetti Aspen		1	5	17	7	f
+7	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	Rigetti Aspen M-1	Rigetti Aspen M-1		1	6	17	7	f
+8	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	Rigetti Aspen-11	Rigetti Aspen-11		1	6	17	7	f
+9	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	oqc	Oxford Quantum Circuits		1	\N	17	7	f
+10	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	oqc-lucy	oqc-lucy		1	9	17	7	f
+11	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	ibmq-montreal	ibmq-montreal		1	1	17	7	f
+12	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	ibmq-mumbai	ibmq-mumbai		1	1	17	7	f
+62	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	Honeywell System Model H1	Honeywell System Model H1	Honeywell System Model H1, ion-based quantum processor.	1	\N	17	7	f
+63	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	Sycamore	Google Sycamore		1	\N	17	7	f
+64	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	Rigetti 16Q Aspen-1 	Rigetti		1	5	17	7	f
+65	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	Rochester	Rochester		1	1	17	7	f
+66	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	ibmq-tokyo	ibmq-tokyo		1	1	17	7	f
+67	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	ibmq-johannesburg	ibmq-johannesburg		1	1	17	7	f
+68	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	ibmq-cambridge	ibmq-cambridge		1	1	17	7	f
+69	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	ibmq-rochester	ibmq-rochester		1	1	17	7	f
+70	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	ibmq-boeblingen	ibmq-boeblingen		1	1	17	7	f
+71	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	ibmq-manhattan	ibmq-manhattan		1	1	17	7	f
+72	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	Intel® Core™ i5-6200U	Intel® Core™ i5-6200U		1	\N	17	7	f
+73	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	PyZX	PyZX		1	\N	17	7	f
+74	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	Bruker AV-400	Bruker AV-400 spectrometer		1	\N	17	7	f
+76	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	ibmq-melbourne	IBMQ Melbourne		1	1	17	7	f
+77	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	NASA Pleiades	NASA Pleiades	HPC cluster	1	\N	17	7	f
+78	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	NASA Electra	NASA Electra	HPC cluster	1	\N	17	7	f
+79	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	ibmq-london	ibmq-london	5-qubit QPU	1	1	17	7	f
+80	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	Quantinuum System Model H1-1	Quantinuum System Model H1-1		1	\N	17	7	f
+81	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	Honeywell System Model H0	Honeywell System Model H0		1	\N	17	7	f
+82	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	Quantinuum System Model H1-2	Quantinuum System Model H1-2		1	\N	17	7	f
+83	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	TR-K80	AMD Threadripper + Tesla K80 24GB	Threadripper system with a Tesla K80 	1	\N	17	7	f
+84	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	Alibaba Cloud Quantum Development Platform	Alibaba Cloud Quantum Development Platform		1	\N	17	7	f
 \.
 
 
@@ -1622,253 +1625,253 @@ COPY public."resultPlatformRefs" (id, "updatedAt", "createdAt", "deletedAt", "us
 -- Data for Name: results; Type: TABLE DATA; Schema: public; Owner: metriq
 --
 
-COPY public.results (id, "isHigherBetter", "metricName", "metricValue", "createdAt", "updatedAt", "deletedAt", "userId", "submissionMethodRefId", "submissionTaskRefId", "evaluatedAt", notes, "standardError", "sampleSize", "submissionPlatformRefId", "qubitCount", "circuitDepth", shots) FROM stdin;
-66	t	Approximation ratio	0.498	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	50	50	2019-09-19	anti-ferromagnetic Heisenberg XYZ model	\N	\N	\N	\N	\N	\N
-23	t	Factorized integer	14	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	13	19	\N		\N	\N	\N	\N	\N	\N
-27	t	Database size	4	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	22	25	\N		\N	\N	\N	\N	\N	\N
-28	t	Bitstring length	2	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	24	27	\N		\N	\N	\N	\N	\N	\N
-67	t	Approximation ratio	0.649	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	50	50	2019-09-19		\N	\N	\N	\N	\N	\N
-68	t	Approximation ratio	0.53	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	51	51	2020-03-31		\N	\N	\N	\N	\N	\N
-69	t	Approximation ratio	0.88	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	52	52	\N		\N	\N	\N	\N	\N	\N
-61	t	Quantum volume	3	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	46	46	2020-05-31		\N	\N	35	\N	\N	\N
-22	f	BeH2 energy (Hartree units)	-15.2	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	11	18	\N		\N	\N	\N	\N	\N	\N
-64	f	H2 energy (Hartreee units)	-1.8422	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	49	49	2021-12-02		\N	\N	\N	\N	\N	\N
-65	f	H2 energy (Hartreee units)	-1.8464	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	49	49	2021-12-02		\N	\N	\N	\N	\N	\N
-70	t	Fidelity (L2)	0.925	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	53	54	2022-01-19		\N	\N	\N	\N	\N	\N
-71	t	Fidelity (L2)	0.995	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	54	56	2022-01-19	Sequence fidelity for CNOT gate.	\N	\N	\N	\N	\N	\N
-72	t	Fidelity	0.989	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	55	57	2022-01-21		\N	\N	\N	\N	\N	\N
-73	t	Rate	0.978	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	55	57	2022-01-21		\N	\N	\N	\N	\N	\N
-74	t	Coverage	0.409	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	55	57	2022-01-21		\N	\N	\N	\N	\N	\N
-75	f	T-gates exponent coefficient	0.23	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	56	58	2016-01-27	The algorithm scales as 2^(0.5*t), where t=number of T gates.	\N	\N	\N	\N	\N	\N
-76	t	Fidelity (L2)	0.866	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	57	60	2022-01-21	Average of GHZ state fidelities, with various angles. Taken from Figure 2. 	\N	\N	\N	\N	\N	\N
-78	t	Gate error threshold	0.022	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	61	64	2022-01-25		\N	\N	\N	\N	\N	\N
-79	t	Gate error threshold	0.5	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	62	65	2022-01-19	Limit at infinite Pauli noise bias	\N	\N	\N	\N	\N	\N
-31	f	Gate count	69	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	8	30	\N		\N	\N	79	\N	\N	\N
-77	t	CNOT gate fidelity	0.995	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	59	62	2022-01-19	CNOT Gate Fidelity. See paper for details in "Sequence-fidelity and gate-fidelity extraction in randomized benchmarking".	\N	\N	\N	\N	\N	\N
-160	t	Quantum volume	3	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	277	142	2022-03-08		\N	\N	26	\N	\N	\N
-163	t	Quantum volume	3	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	277	142	2022-03-08		\N	\N	24	\N	\N	\N
-166	t	Quantum volume	5	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	277	142	2022-03-08		\N	\N	21	\N	\N	\N
-169	t	Quantum volume	5	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	277	142	2022-03-08		\N	\N	20	\N	\N	\N
-172	t	Quantum volume	4	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	277	142	2022-03-08		\N	\N	16	\N	\N	\N
-175	t	Quantum volume	5	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	277	142	2022-03-08		\N	\N	13	\N	\N	\N
-25	t	CLOPS	951	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	21	23	\N		\N	\N	3	\N	\N	\N
-57	t	Quantum volume	4	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	40	44	2019-10-11		\N	\N	83	\N	\N	\N
-2	t	Approximation ratio	0.2	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	3	3	2020-04-08		\N	\N	78	\N	\N	\N
-60	t	Quantum volume	6	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	302	45	2020-06-20		\N	\N	135	\N	\N	\N
-6	t	Factorized integer	291311	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	6	6	2017-06-25		\N	\N	101	\N	\N	\N
-62	t	Quantum volume	5	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	47	47	2020-12-07	Published in PRX Quantum	\N	\N	84	\N	\N	\N
-55	t	Database size	256	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	36	40	2020-11-16	Simulated, performed live on Unitary Fund Quantum Software Talk by Daniel Strano, Intro to Qrack... : https://www.youtube.com/watch?v=yxyqJDC4SUo&t=14s	\N	\N	4	\N	\N	\N
-26	t	CLOPS	753	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	23	23	\N		\N	\N	81	\N	\N	\N
-24	t	CLOPS	1419	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	20	23	\N		\N	\N	2	\N	\N	\N
-63	t	Quantum volume	10	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	48	48	2021-10-27		\N	\N	77	\N	\N	\N
-33	f	Gate count	35	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	9	30	\N		\N	\N	79	\N	\N	\N
-37	t	Gate count	11	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	8	31	\N		\N	\N	80	\N	\N	\N
-39	f	Gate count	230	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	9	31	\N		\N	\N	80	\N	\N	\N
-35	f	Gate count	56	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	10	30	\N		\N	\N	79	\N	\N	\N
-41	f	Gate count	25	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	10	31	\N		\N	\N	80	\N	\N	\N
-59	t	Quantum volume	6	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	45	43	2020-09-04		\N	\N	82	\N	\N	\N
-7	t	Factorized integer	200000	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	7	7	2016-04-20		\N	\N	102	\N	\N	\N
-157	t	Quantum volume	3	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	277	142	2022-03-08		\N	\N	29	\N	\N	\N
-80	t	Gate error threshold	0.017	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	63	66	2022-01-10		\N	\N	\N	\N	\N	\N
-84	t	Coherence Time (T2) in Seconds	5	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	71	73	2022-02-02	±1.3 seconds. Spin coherence time. Published in Sci. Adv. https://www.science.org/doi/10.1126/sciadv.abm5912?	\N	\N	\N	\N	\N	\N
-86	t	Coherence Time (T2) in Seconds	0.0023	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	72	75	2020-09-21		\N	\N	\N	\N	\N	\N
-87	t	Coherence Time (T2) in Seconds	0.00125	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	73	76	2014-12-01	Published in Nature Materials, https://www.nature.com/articles/nmat4144	\N	\N	\N	\N	\N	\N
-88	t	Coherence Time (T2) in Seconds	0.00036	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	74	77	2013-05-07	Published in https://www.nature.com/articles/ncomms2854	\N	\N	\N	\N	\N	\N
-89	t	Qubits	29	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	77	80	2022-01-26	fidelity is over 0.5	\N	\N	\N	\N	\N	\N
-97	t	T gate count	1400	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	94	98	2022-02-18	50-qubit circuit simulation.	\N	\N	\N	\N	\N	\N
-99	t	Gate cycles	20	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	96	104	2020-05-14	53-qubit random quantum circuits. 0.2% XEB fidelity. Taken from Table I on page 12.	\N	\N	\N	\N	\N	\N
-100	t	Qubits	54	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	96	102	2020-05-14	20-cycle for cross-entropy benchmarking fidelity (XEB).	\N	\N	\N	\N	\N	\N
-101	f	T gate count	279	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	97	109	2020-01-20	Reduce gate count from 567 to 279 the T-gate counts for the e 9 qubit circuit nth prime6.tfc from the Reversible Circuit Benchmark page at https://reversiblebenchmarks.github.io/	\N	\N	\N	\N	\N	\N
-85	t	Single-qubit relaxation time (T1)	104	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	71	74	2022-02-02	Within 95% confidence level. See Sci. Adv. https://www.science.org/doi/10.1126/sciadv.abm5912	\N	\N	\N	\N	\N	\N
-170	t	Quantum volume	4	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	277	142	2022-03-08		\N	\N	18	\N	\N	\N
-110	t	Hellinger distance	0.763	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	275	122	2021-12-21	7-qubit no ancilla	\N	\N	111	\N	\N	\N
-109	t	Hellinger distance	0.76	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	275	122	2021-12-21	7-qubit with ancilla	\N	\N	111	\N	\N	\N
-173	t	Quantum volume	5	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	277	142	2022-03-08		\N	\N	15	\N	\N	\N
-179	f	Qubits	75	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	146	144	2022-01-18		\N	\N	\N	\N	\N	\N
-183	f	Time (s)	19.92	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	146	144	2022-01-18		\N	\N	\N	\N	\N	\N
-185	f	Time (s)	34.14	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	148	144	2022-01-18		\N	\N	\N	\N	\N	\N
-187	f	Distance (cm)	565	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	147	144	2022-01-18		\N	\N	\N	\N	\N	\N
-189	f	Qubits	507	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	146	148	2022-01-18		\N	\N	\N	\N	\N	\N
-191	f	Qubits	1066	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	148	148	2022-01-18		\N	\N	\N	\N	\N	\N
-195	f	Time (s)	634.68	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	148	148	2022-01-18		\N	\N	\N	\N	\N	\N
-197	f	Distance (cm)	1228	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	147	148	2022-01-18		\N	\N	\N	\N	\N	\N
-199	f	Qubits	648	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	147	146	2022-01-18		\N	\N	\N	\N	\N	\N
-201	f	Qubits	522	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	148	146	2022-01-18		\N	\N	\N	\N	\N	\N
-203	f	Time (s)	70.62	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	147	146	2022-01-18		\N	\N	\N	\N	\N	\N
-114	t	Fidelity	0.974	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	119	130	2022-03-03	1000 state preparation trials	\N	\N	30	\N	\N	\N
-115	t	Fidelity	0.995	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	119	131	2022-03-03	190 state preparation trials	\N	\N	30	\N	\N	\N
-111	t	Mean of bitstring length	0.935946	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	276	126	2021-12-20		\N	\N	113	\N	\N	\N
-82	t	Qubits	56	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	67	70	2021-06-28		\N	\N	42	\N	\N	\N
-112	t	Mean of bitstring length	0.951753	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	276	126	2021-12-20		\N	\N	114	\N	\N	\N
-176	t	Quantum volume	0	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	277	142	2022-03-08		\N	\N	10	\N	\N	\N
-102	f	28qb QFT seconds	0.307	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	110	121	2022-03-01	https://docs.google.com/spreadsheets/d/1fZ_TS3fnHHZvPe_FS8Xd9Tl_ynxUItOSi1Xi-57JOe8/edit?usp=sharing	\N	\N	4	\N	\N	\N
-113	t	Mean of bitstring length	0.991576	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	276	126	2021-12-20		\N	\N	115	\N	\N	\N
-161	t	Quantum volume	2	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	277	142	2022-03-08		\N	\N	25	\N	\N	\N
-81	t	Gate fidelity	0.9951	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	64	67	2021-11-24	π/2-gate	\N	\N	40	\N	\N	\N
-83	t	Gate cycles	20	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	67	70	2021-06-28		\N	\N	42	\N	\N	\N
-164	t	Quantum volume	4	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	277	142	2022-03-08		\N	\N	23	\N	\N	\N
-38	f	Circuit depth	9	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	8	31	\N		\N	\N	80	\N	\N	\N
-95	f	Hardness parameter exponent	0.9515	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	93	97	2022-02-18		\N	\N	62	\N	\N	\N
-32	f	Circuit depth	45	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	8	30	\N		\N	\N	79	\N	\N	\N
-34	f	Circuit depth	21	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	9	30	\N		\N	\N	79	\N	\N	\N
-40	f	Circuit depth	83	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	9	31	\N		\N	\N	80	\N	\N	\N
-36	f	Circuit depth	27	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	10	30	\N		\N	\N	79	\N	\N	\N
-167	t	Quantum volume	4	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	277	142	2022-03-08		\N	\N	19	\N	\N	\N
-42	f	Circuit depth	14	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	10	31	\N		\N	\N	80	\N	\N	\N
-96	f	Hardness parameter exponent	1.034	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	92	97	2022-02-18		\N	\N	62	\N	\N	\N
-107	t	Hellinger distance	0.754	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	275	122	2021-12-17		\N	\N	110	\N	\N	\N
-108	t	Hellinger distance	0.751	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	275	122	2021-12-21		\N	\N	112	\N	\N	\N
-145	t	Qubits	27	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	277	142	2022-03-08		\N	\N	14	\N	\N	\N
-177	t	Quantum volume	0	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	277	142	2022-03-08		\N	\N	8	\N	\N	\N
-140	t	Qubits	38	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	277	142	2022-03-08		\N	\N	8	\N	\N	\N
-180	f	Qubits	100	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	147	144	2022-01-18		\N	\N	\N	\N	\N	\N
-182	f	Qubits	140	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	148	144	2022-01-18		\N	\N	\N	\N	\N	\N
-184	f	Time (s)	4.8	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	147	144	2022-01-18		\N	\N	\N	\N	\N	\N
-186	f	Distance (cm)	565	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	146	144	2022-01-18		\N	\N	\N	\N	\N	\N
-188	f	Distance (cm)	565	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	148	144	2022-01-18		\N	\N	\N	\N	\N	\N
-190	f	Qubits	2028	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	147	148	2022-01-18		\N	\N	\N	\N	\N	\N
-192	f	Time (s)	479.52	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	146	148	2022-01-18		\N	\N	\N	\N	\N	\N
-194	f	Time (s)	580.62	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	147	148	2022-01-18		\N	\N	\N	\N	\N	\N
-196	f	Distance (cm)	1428.6	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	146	148	2022-01-18		\N	\N	\N	\N	\N	\N
-198	f	Qubits	243	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	146	146	2022-01-18		\N	\N	\N	\N	\N	\N
-202	f	Time (s)	72.54	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	146	146	2022-01-18		\N	\N	\N	\N	\N	\N
-204	f	Time (s)	160.56	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	148	146	2022-01-18		\N	\N	\N	\N	\N	\N
-205	f	Distance (cm)	612.2	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	146	146	2022-01-18		\N	\N	\N	\N	\N	\N
-206	f	Distance	1146	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	148	146	2022-01-18		\N	\N	\N	\N	\N	\N
-207	f	Distance	958	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	147	146	2022-01-18		\N	\N	\N	\N	\N	\N
-212	f	Time (s)	1276.74	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	149	150	2021-07-09		\N	\N	88	\N	\N	\N
-147	t	Qubits	5	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	277	142	2022-03-08		\N	\N	11	\N	\N	\N
-159	t	Quantum volume	4	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	277	142	2022-03-08		\N	\N	27	\N	\N	\N
-155	t	Qubits	5	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	277	142	2022-03-08		\N	\N	27	\N	\N	\N
-154	t	Qubits	5	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	277	142	2022-03-08		\N	\N	25	\N	\N	\N
-152	t	Qubits	7	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	277	142	2022-03-08		\N	\N	24	\N	\N	\N
-150	t	Qubits	7	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	277	142	2022-03-08		\N	\N	23	\N	\N	\N
-165	t	Quantum volume	5	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	277	142	2022-03-08		\N	\N	22	\N	\N	\N
-151	t	Qubits	7	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	277	142	2022-03-08		\N	\N	22	\N	\N	\N
-168	t	Quantum volume	4	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	277	142	2022-03-08		\N	\N	12	\N	\N	\N
-146	t	Qubits	27	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	277	142	2022-03-08		\N	\N	12	\N	\N	\N
-139	t	Qubits	65	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	277	142	2022-03-08		\N	\N	20	\N	\N	\N
-137	t	Qubits	127	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	277	142	2022-03-08		\N	\N	18	\N	\N	\N
-171	t	Quantum volume	4	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	277	142	2022-03-08		\N	\N	17	\N	\N	\N
-142	f	Qubits	27	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	277	142	2022-03-08		\N	\N	17	\N	\N	\N
-141	t	Qubits	27	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	277	142	2022-03-08		\N	\N	15	\N	\N	\N
-174	t	Quantum volume	4	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	277	142	2022-03-08		\N	\N	14	\N	\N	\N
-226	f	Hellinger distance	0.12	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	166	151	2021-12-02	2 oracle calls	\N	\N	\N	\N	\N	\N
-223	f	Hellinger distance	0.0228	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	166	151	2021-12-02	1 oracle call	\N	\N	\N	\N	\N	\N
-222	f	Hellinger distance	0.0261	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	165	151	2021-12-02	1 oracle call	\N	\N	\N	\N	\N	\N
-224	f	Hellinger distance	0.03	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	167	151	2021-12-02	1 oracle call	\N	\N	\N	\N	\N	\N
-225	f	Hellinger distance	0.152	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	165	151	2021-12-02	2 oracle calls	\N	\N	\N	\N	\N	\N
-227	f	Hellinger distance	0.127	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	167	151	2021-12-02		\N	\N	\N	\N	\N	\N
-228	t	Coherence Time (T2) in Seconds	0.0001	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	168	152	2012-03-08	3D Transmon. Result taken from Figure 3a. Roughly 10^5 ns. 	\N	\N	\N	\N	\N	\N
-143	f	Qubits	27	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	277	142	2022-03-08		\N	\N	16	\N	\N	\N
-156	t	Qubits	5	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	277	142	2022-03-08		\N	\N	29	\N	\N	\N
-153	t	Qubits	7	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	277	142	2022-03-08		\N	\N	26	\N	\N	\N
-148	t	Qubits	16	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	277	142	2022-03-08		\N	\N	21	\N	\N	\N
-144	t	Qubits	4	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	277	142	2022-03-08		\N	\N	19	\N	\N	\N
-149	t	Qubits	8	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	277	142	2022-03-08		\N	\N	10	\N	\N	\N
-178	t	Quantum volume	0	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	277	142	2022-03-08		\N	\N	7	\N	\N	\N
-229	f	Logical error per syndrome measurement round	0.04	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	205	178	2022-03-14		\N	\N	\N	\N	\N	\N
-230	f	Logical error per syndrome measurement round	0.03	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	206	178	2022-03-14		\N	\N	\N	\N	\N	\N
-232	t	Time (s)	4400000	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	227	193	2022-03-30	7-qubit codes	\N	\N	\N	\N	\N	\N
-231	f	Time (s)	18000	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	227	193	2022-03-30	4-qubit codes	\N	\N	\N	\N	\N	\N
-234	t	T gate count	70	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	95	196	2021-09-02	50-qubit quantum circuit.	\N	\N	\N	\N	\N	\N
-138	t	Qubits	79	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	277	142	2022-03-10		\N	\N	7	\N	\N	\N
-162	t	Quantum volume	3	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	277	142	2022-03-08		\N	\N	11	\N	\N	\N
-158	t	Quantum volume	3	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	277	142	2022-03-08		\N	\N	28	\N	\N	\N
-209	f	Time (s)	445.32	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	149	150	2021-07-09		\N	\N	85	\N	\N	\N
-210	f	Time (s)	365.35	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	149	150	2021-07-09		\N	\N	87	\N	\N	\N
-213	f	Time (s)	211.68	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	149	150	2021-07-09		\N	\N	89	\N	\N	\N
-218	f	Time (s)	292.52	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	149	150	2021-07-09		\N	\N	90	\N	\N	\N
-215	f	Time (s)	303.75	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	149	150	2021-07-09		\N	\N	91	\N	\N	\N
-216	f	Time (s)	670.67	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	149	150	2021-07-09		\N	\N	92	\N	\N	\N
-235	t	Quantum volume	8	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	233	200	2022-04-06		\N	\N	63	\N	\N	\N
-219	f	Time (s)	54.46	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	149	150	2021-07-09		\N	\N	93	\N	\N	\N
-220	f	Time (s)	0.02	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	267	150	2021-07-09		\N	\N	93	\N	\N	\N
-221	f	Time (s)	0.01	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	268	150	2021-07-09		\N	\N	93	\N	\N	\N
-208	f	Time (s)	215.49	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	149	150	2021-07-09		\N	\N	86	\N	\N	\N
-29	t	Factorized integer	16373	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	26	28	2021-11-23	See https://github.com/vm6502q/pyqrack-jupyter/blob/main/shor.ipynb for source, for result.	\N	\N	4	\N	\N	\N
-106	f	Trend scale (seconds)	1e-09	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	110	121	2022-03-01	Exponential like [Trend scale (seconds)] * 2^n empirically observed, for n qubits\n\nAlienware m17 laptop\nAlienware BIOS version 1.6.2 (overclocking default/off)\nUbuntu 20.04.4 LTS\nCPU model: Intel(R) Core(TM) i9-10980HK CPU @ 2.40GHz\nDefault device: NVIDIA GeForce RTX 3080 Laptop GPU\nSecondary device: Intel(R) Gen9 HD Graphics NEO\nGeneral system RAM: 31866MB, 2x16GiB Row of chips DDR4 Synchronous 3200 MHz (0.3 ns)\nhttps://docs.google.com/spreadsheets/d/1fZ_TS3fnHHZvPe_FS8Xd9Tl_ynxUItOSi1Xi-57JOe8/edit?usp=sharing	\N	\N	4	\N	\N	\N
-238	t	Approximation ratio	0.628	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	234	90	2022-02-11		\N	\N	32	\N	\N	\N
-239	f	Mitigation threshold shots	3000	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	237	209	2022-04-14		\N	\N	48	\N	\N	\N
-240	f	Mitigation threshold shots	120000	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	236	209	2022-04-14		\N	\N	48	\N	\N	\N
-241	f	Time (s)	347	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	240	212	2022-04-12		\N	\N	50	\N	\N	\N
-242	f	Time (s)	246	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	240	212	2022-04-12		\N	\N	51	\N	\N	\N
-243	f	Time (s)	6.7	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	240	212	2022-04-12		\N	\N	52	\N	\N	\N
-244	f	Time (s)	3.5	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	240	212	2022-04-12		\N	\N	53	\N	\N	\N
-245	f	Time (s)	2.6	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	240	212	2022-04-12		\N	\N	54	\N	\N	\N
-246	f	Time (s)	2.1	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	240	212	2022-04-12		\N	\N	55	\N	\N	\N
-247	f	Time (s)	383	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	240	212	2022-04-12		\N	\N	56	\N	\N	\N
-248	f	Time (s)	5.6	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	240	212	2022-04-12		\N	\N	57	\N	\N	\N
-249	f	Time (s)	1.4	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	240	212	2022-04-12		\N	\N	58	\N	\N	\N
-265	t	Quantum volume	9	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	277	142	2022-03-18		\N	\N	136	\N	\N	\N
-266	f	Quantum volume	3	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	277	142	2022-03-18		\N	\N	137	\N	\N	\N
-250	f	Hardness parameter exponent	0.6313	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	93	97	2022-02-18	Considering only graphs with\nminimum energy gaps large enough to be resolved in the duration of the quantum evolution	\N	\N	62	\N	\N	\N
-251	f	Distance	2	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	245	216	\N		\N	\N	65	\N	\N	\N
-256	f	Distance	0	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	35	38	2021-12-15		\N	\N	\N	\N	\N	\N
-257	t	Fidelity (L2)	0.78	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	234	83	\N	Result extracted from Figure 3b (GHZ fidelity vs N qubit number)	\N	\N	32	\N	\N	\N
-258	t	Qubits	6	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	234	84	\N		\N	\N	32	\N	\N	\N
-259	t	CLOPS	8333	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	274	91	\N	Not peer-reviewed or third-party reviewed.	\N	\N	33	\N	\N	\N
-260	t	CLOPS	7512	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	274	91	\N	Not peer-reviewed or third-party reviewed.	\N	\N	34	\N	\N	\N
-237	t	Qubits	27	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	277	142	2022-03-08		\N	\N	13	\N	\N	\N
-236	t	Qubits	5	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	277	142	2022-03-08		\N	\N	28	\N	\N	\N
-261	t	Approximation ratio	1	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	286	234	2021-06-18	F-VQE outperforms VQE and QAOA on all metrics on 25 MaxCut weighted 3-regular random instances of 6, 8, 10, 12 and 14 nodes: average approximation ratio, optimisation steps, and fraction of solved instances.	\N	25	130	\N	\N	\N
-267	f	Qubits	12	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	277	142	2022-03-18		\N	\N	136	\N	\N	\N
-263	f	Qubits	6	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	287	234	2021-06-18	HE-ITE solves a random 24-node MaxCut weighted 3-regular graph using only 6 qubits. 	\N	25	130	\N	\N	\N
-268	f	Qubits	11	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	277	142	2022-03-18		\N	\N	137	\N	\N	\N
-262	t	Approximation ratio	1	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	286	234	2021-06-18	F-VQE solves a random 10-node MaxCut weighted 3-regular on the Honeywell / Quantinuum H1 device. 	\N	1	129	\N	\N	\N
-264	t	Approximation ratio	1	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	288	235	2021-09-08	F-VQE achieves 25% probability of sampling the optimal solution on a 23-qubit Job-shop Scheduling problem of industrial relevance on the superconducting processor ibmq_manhattan.	\N	1	132	\N	\N	\N
-269	t	Quantum volume	10	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	252	48	2021-07-12		\N	\N	134	\N	\N	\N
-271	t	Quantum volume	9	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	295	237	2021-03-02		\N	\N	139	\N	\N	\N
-278	t	Gate fidelity	0.9921	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	303	244	2020-06-20		0.0004	\N	135	\N	\N	\N
-48	t	Gate count	775	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	29	34	2020-11-13	Results presented in the paper "A Verified Optimizer for Quantum Circuits", Table 2.	\N	\N	\N	\N	\N	\N
-49	t	Gate count	805	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	30	34	2020-11-13	Results presented in the paper "A Verified Optimizer for Quantum Circuits", Table 2.	\N	\N	\N	\N	\N	\N
-50	t	Gate count	682	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	31	34	2020-11-13	Results presented in the paper "A Verified Optimizer for Quantum Circuits", Table 2.	\N	\N	\N	\N	\N	\N
-52	f	Gate count	606	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	32	34	2020-11-13	Results presented in the paper "A Verified Optimizer for Quantum Circuits", Table 2.	\N	\N	\N	\N	\N	\N
-1	t	Qubits	22	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	2	2	2020-04-08		\N	\N	\N	\N	\N	\N
-3	t	Factorized integer	3127	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	5	5	2020-12-14		\N	\N	\N	\N	\N	\N
-4	t	Factorized integer	6557	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	5	5	2020-12-14		\N	\N	\N	\N	\N	\N
-5	t	Factorized integer	1099551473989	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	5	5	2020-12-14		\N	\N	\N	\N	\N	\N
-18	f	LiH energy (Hartree units)	-7.7	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	11	18	\N		\N	\N	\N	\N	\N	\N
-20	f	H2 energy (Hartreee units)	-1.1	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	11	18	\N		\N	\N	\N	\N	\N	\N
-53	f	T gate count	215	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	31	34	2020-11-13	Results presented in the paper "A Verified Optimizer for Quantum Circuits", Table 3.	\N	\N	\N	\N	\N	\N
-295	f	Qubits	1120	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	308	253	2022-05-30		\N	\N	\N	\N	\N	\N
-296	f	Circuit depth	5200	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	308	253	2022-05-30		\N	\N	\N	\N	\N	\N
-297	f	Bands	3	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	308	254	2022-05-30		\N	\N	\N	\N	\N	\N
-298	f	Qubits	180	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	308	254	2022-05-30		\N	\N	\N	\N	\N	\N
-299	f	Circuit depth	730	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	308	254	2022-05-30		\N	\N	\N	\N	\N	\N
-300	f	Infidelity exponent, function of iterations	-1.19	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	309	255	2022-05-01		\N	\N	\N	\N	\N	\N
-301	f	Infidelity exponent, function of iterations	-1.3	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	309	256	2022-05-01		\N	\N	\N	\N	\N	\N
-302	f	Time (days)	20	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	310	258	2021-09-13	Extrapolated estimate	\N	\N	144	\N	\N	\N
-19	f	H2 energy (Hartree units)	-7.7	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	1	11	18	\N		\N	\N	\N	\N	\N	\N
-21	f	BeH2 energy (Hartree units)	-1.1	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	1	11	18	\N		\N	\N	\N	\N	\N	\N
-47	f	Circuit depth	10	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	1	8	31	2021-12-01		\N	\N	80	\N	\N	\N
-43	t	Factorized integer	163214	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	1	27	32	2021-11-03		\N	\N	\N	\N	\N	\N
-51	f	Gate count	606	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	1	32	34	2020-11-13		\N	\N	\N	\N	\N	\N
-17	f	H2 energy	0	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	1	11	18	\N		\N	\N	\N	\N	\N	\N
-275	t	Gate fidelity	0.9976	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	299	241	2021-03-02		0.0003	\N	139	\N	\N	\N
-274	t	Gate fidelity	0.9954	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	298	240	2020-09-29		0.0007	\N	138	\N	\N	\N
-270	t	Quantum volume	7	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	294	236	2020-09-29		\N	\N	138	\N	\N	\N
-273	t	Quantum volume	12	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	297	239	2022-04-11		\N	\N	141	\N	\N	\N
-276	t	Gate fidelity	0.9981	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	300	242	2022-04-11		0.0003	\N	141	\N	\N	\N
-277	f	Gate fidelity	0.9977	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	301	243	2021-12-17		0.009	\N	140	\N	\N	\N
-272	f	Quantum volume	11	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	296	238	2021-12-17		\N	\N	140	\N	\N	\N
-280	t	Qubits	36	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	307	245	2022-05-23	17000ms per GPU ( K80 has 2 GPUs )\nmeasured results export: https://github.com/twobombs/thereminq/blob/master/miscfiles/TNN_d.tar.gz	11	3081	143	\N	\N	\N
-279	t	Quantum volume	8	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	304	200	2022-04-06		\N	\N	63	\N	\N	\N
-254	t	Factorized integer	2147483637	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	305	28	2022-05-02	27 * 79536431, 143 ms for quantum subroutine, which was engaged in Shor's algorithm, (simulated), 3n+1 footprint,  as can be trivially validated in https://github.com/vm6502q/pyqrack-jupyter/blob/main/shor.ipynb	0	\N	4	\N	\N	\N
-281	t	Qubits	38	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	307	245	2022-05-23	overview of error rates and/at depth\nhttps://user-images.githubusercontent.com/12692227/156922673-f563cdfc-1a66-4e67-a5e9-ea557ab7bc5d.png	14	17	143	\N	\N	\N
-282	f	Qubits	40	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	307	245	\N	overview of error rate and/at depth \n\nhttps://user-images.githubusercontent.com/12692227/156922673-f563cdfc-1a66-4e67-a5e9-ea557ab7bc5d.png	37	4	143	\N	\N	\N
-283	t	Qubits	28	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	307	246	2022-05-23	Sycamore scope from 12 to 28qubits with 99678 measured results downloadable at :\nhttps://github.com/twobombs/thereminq/blob/master/miscfiles/qrack-supreme12-28q14d10k.tar.gz	0	10223	143	\N	\N	\N
-284	t	Qubits	24	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	307	247	2022-05-23	Range between 4 and 24qubits\nTotal amount of samples 724615\nDownloadable at https://github.com/twobombs/thereminq/blob/master/miscfiles/qrack-cosmos.tar.gz	0	34500	143	\N	\N	\N
-285	f	Bands	4	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	308	250	2022-05-30		\N	\N	\N	\N	\N	\N
-286	f	Qubits	1120	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	308	250	2022-05-30		\N	\N	\N	\N	\N	\N
-287	f	Circuit depth	4900	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	308	250	2022-05-30		\N	\N	\N	\N	\N	\N
-288	f	Bands	7	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	308	251	2022-05-30		\N	\N	\N	\N	\N	\N
-289	f	Qubits	1870	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	308	251	2022-05-30		\N	\N	\N	\N	\N	\N
-290	f	Circuit depth	28000	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	308	251	2022-05-30		\N	\N	\N	\N	\N	\N
-291	f	Bands	11	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	308	252	2022-05-30		\N	\N	\N	\N	\N	\N
-292	f	Qubits	1024	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	308	252	2022-05-30		\N	\N	\N	\N	\N	\N
-293	f	Circuit depth	8000	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	308	252	2022-05-30		\N	\N	\N	\N	\N	\N
-294	f	Bands	4	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	308	253	2022-05-30		\N	\N	\N	\N	\N	\N
+COPY public.results (id, "isHigherBetter", "metricName", "metricValue", "createdAt", "updatedAt", "deletedAt", "userId", "submissionMethodRefId", "submissionTaskRefId", "evaluatedAt", notes, "standardError", "sampleSize", "submissionPlatformRefId", "qubitCount", "circuitDepth", shots, "submissionDataSetRefId") FROM stdin;
+66	t	Approximation ratio	0.498	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	50	50	2019-09-19	anti-ferromagnetic Heisenberg XYZ model	\N	\N	\N	\N	\N	\N	\N
+23	t	Factorized integer	14	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	13	19	\N		\N	\N	\N	\N	\N	\N	\N
+27	t	Database size	4	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	22	25	\N		\N	\N	\N	\N	\N	\N	\N
+28	t	Bitstring length	2	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	24	27	\N		\N	\N	\N	\N	\N	\N	\N
+67	t	Approximation ratio	0.649	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	50	50	2019-09-19		\N	\N	\N	\N	\N	\N	\N
+68	t	Approximation ratio	0.53	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	51	51	2020-03-31		\N	\N	\N	\N	\N	\N	\N
+69	t	Approximation ratio	0.88	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	52	52	\N		\N	\N	\N	\N	\N	\N	\N
+61	t	Quantum volume	3	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	46	46	2020-05-31		\N	\N	35	\N	\N	\N	\N
+22	f	BeH2 energy (Hartree units)	-15.2	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	11	18	\N		\N	\N	\N	\N	\N	\N	\N
+64	f	H2 energy (Hartreee units)	-1.8422	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	49	49	2021-12-02		\N	\N	\N	\N	\N	\N	\N
+65	f	H2 energy (Hartreee units)	-1.8464	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	49	49	2021-12-02		\N	\N	\N	\N	\N	\N	\N
+70	t	Fidelity (L2)	0.925	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	53	54	2022-01-19		\N	\N	\N	\N	\N	\N	\N
+71	t	Fidelity (L2)	0.995	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	54	56	2022-01-19	Sequence fidelity for CNOT gate.	\N	\N	\N	\N	\N	\N	\N
+72	t	Fidelity	0.989	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	55	57	2022-01-21		\N	\N	\N	\N	\N	\N	\N
+73	t	Rate	0.978	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	55	57	2022-01-21		\N	\N	\N	\N	\N	\N	\N
+74	t	Coverage	0.409	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	55	57	2022-01-21		\N	\N	\N	\N	\N	\N	\N
+75	f	T-gates exponent coefficient	0.23	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	56	58	2016-01-27	The algorithm scales as 2^(0.5*t), where t=number of T gates.	\N	\N	\N	\N	\N	\N	\N
+76	t	Fidelity (L2)	0.866	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	57	60	2022-01-21	Average of GHZ state fidelities, with various angles. Taken from Figure 2. 	\N	\N	\N	\N	\N	\N	\N
+78	t	Gate error threshold	0.022	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	61	64	2022-01-25		\N	\N	\N	\N	\N	\N	\N
+79	t	Gate error threshold	0.5	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	62	65	2022-01-19	Limit at infinite Pauli noise bias	\N	\N	\N	\N	\N	\N	\N
+31	f	Gate count	69	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	8	30	\N		\N	\N	79	\N	\N	\N	\N
+77	t	CNOT gate fidelity	0.995	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	59	62	2022-01-19	CNOT Gate Fidelity. See paper for details in "Sequence-fidelity and gate-fidelity extraction in randomized benchmarking".	\N	\N	\N	\N	\N	\N	\N
+160	t	Quantum volume	3	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	277	142	2022-03-08		\N	\N	26	\N	\N	\N	\N
+163	t	Quantum volume	3	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	277	142	2022-03-08		\N	\N	24	\N	\N	\N	\N
+166	t	Quantum volume	5	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	277	142	2022-03-08		\N	\N	21	\N	\N	\N	\N
+169	t	Quantum volume	5	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	277	142	2022-03-08		\N	\N	20	\N	\N	\N	\N
+172	t	Quantum volume	4	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	277	142	2022-03-08		\N	\N	16	\N	\N	\N	\N
+175	t	Quantum volume	5	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	277	142	2022-03-08		\N	\N	13	\N	\N	\N	\N
+25	t	CLOPS	951	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	21	23	\N		\N	\N	3	\N	\N	\N	\N
+57	t	Quantum volume	4	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	40	44	2019-10-11		\N	\N	83	\N	\N	\N	\N
+2	t	Approximation ratio	0.2	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	3	3	2020-04-08		\N	\N	78	\N	\N	\N	\N
+60	t	Quantum volume	6	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	302	45	2020-06-20		\N	\N	135	\N	\N	\N	\N
+6	t	Factorized integer	291311	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	6	6	2017-06-25		\N	\N	101	\N	\N	\N	\N
+62	t	Quantum volume	5	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	47	47	2020-12-07	Published in PRX Quantum	\N	\N	84	\N	\N	\N	\N
+55	t	Database size	256	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	36	40	2020-11-16	Simulated, performed live on Unitary Fund Quantum Software Talk by Daniel Strano, Intro to Qrack... : https://www.youtube.com/watch?v=yxyqJDC4SUo&t=14s	\N	\N	4	\N	\N	\N	\N
+26	t	CLOPS	753	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	23	23	\N		\N	\N	81	\N	\N	\N	\N
+24	t	CLOPS	1419	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	20	23	\N		\N	\N	2	\N	\N	\N	\N
+63	t	Quantum volume	10	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	48	48	2021-10-27		\N	\N	77	\N	\N	\N	\N
+33	f	Gate count	35	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	9	30	\N		\N	\N	79	\N	\N	\N	\N
+37	t	Gate count	11	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	8	31	\N		\N	\N	80	\N	\N	\N	\N
+39	f	Gate count	230	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	9	31	\N		\N	\N	80	\N	\N	\N	\N
+35	f	Gate count	56	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	10	30	\N		\N	\N	79	\N	\N	\N	\N
+41	f	Gate count	25	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	10	31	\N		\N	\N	80	\N	\N	\N	\N
+59	t	Quantum volume	6	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	45	43	2020-09-04		\N	\N	82	\N	\N	\N	\N
+7	t	Factorized integer	200000	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	7	7	2016-04-20		\N	\N	102	\N	\N	\N	\N
+157	t	Quantum volume	3	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	277	142	2022-03-08		\N	\N	29	\N	\N	\N	\N
+80	t	Gate error threshold	0.017	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	63	66	2022-01-10		\N	\N	\N	\N	\N	\N	\N
+84	t	Coherence Time (T2) in Seconds	5	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	71	73	2022-02-02	±1.3 seconds. Spin coherence time. Published in Sci. Adv. https://www.science.org/doi/10.1126/sciadv.abm5912?	\N	\N	\N	\N	\N	\N	\N
+86	t	Coherence Time (T2) in Seconds	0.0023	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	72	75	2020-09-21		\N	\N	\N	\N	\N	\N	\N
+87	t	Coherence Time (T2) in Seconds	0.00125	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	73	76	2014-12-01	Published in Nature Materials, https://www.nature.com/articles/nmat4144	\N	\N	\N	\N	\N	\N	\N
+88	t	Coherence Time (T2) in Seconds	0.00036	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	74	77	2013-05-07	Published in https://www.nature.com/articles/ncomms2854	\N	\N	\N	\N	\N	\N	\N
+89	t	Qubits	29	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	77	80	2022-01-26	fidelity is over 0.5	\N	\N	\N	\N	\N	\N	\N
+97	t	T gate count	1400	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	94	98	2022-02-18	50-qubit circuit simulation.	\N	\N	\N	\N	\N	\N	\N
+99	t	Gate cycles	20	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	96	104	2020-05-14	53-qubit random quantum circuits. 0.2% XEB fidelity. Taken from Table I on page 12.	\N	\N	\N	\N	\N	\N	\N
+100	t	Qubits	54	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	96	102	2020-05-14	20-cycle for cross-entropy benchmarking fidelity (XEB).	\N	\N	\N	\N	\N	\N	\N
+101	f	T gate count	279	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	97	109	2020-01-20	Reduce gate count from 567 to 279 the T-gate counts for the e 9 qubit circuit nth prime6.tfc from the Reversible Circuit Benchmark page at https://reversiblebenchmarks.github.io/	\N	\N	\N	\N	\N	\N	\N
+85	t	Single-qubit relaxation time (T1)	104	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	71	74	2022-02-02	Within 95% confidence level. See Sci. Adv. https://www.science.org/doi/10.1126/sciadv.abm5912	\N	\N	\N	\N	\N	\N	\N
+170	t	Quantum volume	4	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	277	142	2022-03-08		\N	\N	18	\N	\N	\N	\N
+110	t	Hellinger distance	0.763	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	275	122	2021-12-21	7-qubit no ancilla	\N	\N	111	\N	\N	\N	\N
+109	t	Hellinger distance	0.76	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	275	122	2021-12-21	7-qubit with ancilla	\N	\N	111	\N	\N	\N	\N
+173	t	Quantum volume	5	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	277	142	2022-03-08		\N	\N	15	\N	\N	\N	\N
+179	f	Qubits	75	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	146	144	2022-01-18		\N	\N	\N	\N	\N	\N	\N
+183	f	Time (s)	19.92	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	146	144	2022-01-18		\N	\N	\N	\N	\N	\N	\N
+185	f	Time (s)	34.14	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	148	144	2022-01-18		\N	\N	\N	\N	\N	\N	\N
+187	f	Distance (cm)	565	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	147	144	2022-01-18		\N	\N	\N	\N	\N	\N	\N
+189	f	Qubits	507	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	146	148	2022-01-18		\N	\N	\N	\N	\N	\N	\N
+191	f	Qubits	1066	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	148	148	2022-01-18		\N	\N	\N	\N	\N	\N	\N
+195	f	Time (s)	634.68	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	148	148	2022-01-18		\N	\N	\N	\N	\N	\N	\N
+197	f	Distance (cm)	1228	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	147	148	2022-01-18		\N	\N	\N	\N	\N	\N	\N
+199	f	Qubits	648	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	147	146	2022-01-18		\N	\N	\N	\N	\N	\N	\N
+201	f	Qubits	522	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	148	146	2022-01-18		\N	\N	\N	\N	\N	\N	\N
+203	f	Time (s)	70.62	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	147	146	2022-01-18		\N	\N	\N	\N	\N	\N	\N
+114	t	Fidelity	0.974	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	119	130	2022-03-03	1000 state preparation trials	\N	\N	30	\N	\N	\N	\N
+115	t	Fidelity	0.995	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	119	131	2022-03-03	190 state preparation trials	\N	\N	30	\N	\N	\N	\N
+111	t	Mean of bitstring length	0.935946	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	276	126	2021-12-20		\N	\N	113	\N	\N	\N	\N
+82	t	Qubits	56	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	67	70	2021-06-28		\N	\N	42	\N	\N	\N	\N
+112	t	Mean of bitstring length	0.951753	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	276	126	2021-12-20		\N	\N	114	\N	\N	\N	\N
+176	t	Quantum volume	0	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	277	142	2022-03-08		\N	\N	10	\N	\N	\N	\N
+102	f	28qb QFT seconds	0.307	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	110	121	2022-03-01	https://docs.google.com/spreadsheets/d/1fZ_TS3fnHHZvPe_FS8Xd9Tl_ynxUItOSi1Xi-57JOe8/edit?usp=sharing	\N	\N	4	\N	\N	\N	\N
+113	t	Mean of bitstring length	0.991576	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	276	126	2021-12-20		\N	\N	115	\N	\N	\N	\N
+161	t	Quantum volume	2	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	277	142	2022-03-08		\N	\N	25	\N	\N	\N	\N
+81	t	Gate fidelity	0.9951	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	64	67	2021-11-24	π/2-gate	\N	\N	40	\N	\N	\N	\N
+83	t	Gate cycles	20	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	67	70	2021-06-28		\N	\N	42	\N	\N	\N	\N
+164	t	Quantum volume	4	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	277	142	2022-03-08		\N	\N	23	\N	\N	\N	\N
+38	f	Circuit depth	9	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	8	31	\N		\N	\N	80	\N	\N	\N	\N
+95	f	Hardness parameter exponent	0.9515	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	93	97	2022-02-18		\N	\N	62	\N	\N	\N	\N
+32	f	Circuit depth	45	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	8	30	\N		\N	\N	79	\N	\N	\N	\N
+34	f	Circuit depth	21	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	9	30	\N		\N	\N	79	\N	\N	\N	\N
+40	f	Circuit depth	83	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	9	31	\N		\N	\N	80	\N	\N	\N	\N
+36	f	Circuit depth	27	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	10	30	\N		\N	\N	79	\N	\N	\N	\N
+167	t	Quantum volume	4	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	277	142	2022-03-08		\N	\N	19	\N	\N	\N	\N
+42	f	Circuit depth	14	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	10	31	\N		\N	\N	80	\N	\N	\N	\N
+96	f	Hardness parameter exponent	1.034	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	92	97	2022-02-18		\N	\N	62	\N	\N	\N	\N
+107	t	Hellinger distance	0.754	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	275	122	2021-12-17		\N	\N	110	\N	\N	\N	\N
+108	t	Hellinger distance	0.751	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	275	122	2021-12-21		\N	\N	112	\N	\N	\N	\N
+145	t	Qubits	27	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	277	142	2022-03-08		\N	\N	14	\N	\N	\N	\N
+177	t	Quantum volume	0	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	277	142	2022-03-08		\N	\N	8	\N	\N	\N	\N
+140	t	Qubits	38	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	277	142	2022-03-08		\N	\N	8	\N	\N	\N	\N
+180	f	Qubits	100	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	147	144	2022-01-18		\N	\N	\N	\N	\N	\N	\N
+182	f	Qubits	140	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	148	144	2022-01-18		\N	\N	\N	\N	\N	\N	\N
+184	f	Time (s)	4.8	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	147	144	2022-01-18		\N	\N	\N	\N	\N	\N	\N
+186	f	Distance (cm)	565	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	146	144	2022-01-18		\N	\N	\N	\N	\N	\N	\N
+188	f	Distance (cm)	565	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	148	144	2022-01-18		\N	\N	\N	\N	\N	\N	\N
+190	f	Qubits	2028	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	147	148	2022-01-18		\N	\N	\N	\N	\N	\N	\N
+192	f	Time (s)	479.52	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	146	148	2022-01-18		\N	\N	\N	\N	\N	\N	\N
+194	f	Time (s)	580.62	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	147	148	2022-01-18		\N	\N	\N	\N	\N	\N	\N
+196	f	Distance (cm)	1428.6	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	146	148	2022-01-18		\N	\N	\N	\N	\N	\N	\N
+198	f	Qubits	243	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	146	146	2022-01-18		\N	\N	\N	\N	\N	\N	\N
+202	f	Time (s)	72.54	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	146	146	2022-01-18		\N	\N	\N	\N	\N	\N	\N
+204	f	Time (s)	160.56	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	148	146	2022-01-18		\N	\N	\N	\N	\N	\N	\N
+205	f	Distance (cm)	612.2	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	146	146	2022-01-18		\N	\N	\N	\N	\N	\N	\N
+206	f	Distance	1146	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	148	146	2022-01-18		\N	\N	\N	\N	\N	\N	\N
+207	f	Distance	958	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	147	146	2022-01-18		\N	\N	\N	\N	\N	\N	\N
+212	f	Time (s)	1276.74	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	149	150	2021-07-09		\N	\N	88	\N	\N	\N	\N
+147	t	Qubits	5	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	277	142	2022-03-08		\N	\N	11	\N	\N	\N	\N
+159	t	Quantum volume	4	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	277	142	2022-03-08		\N	\N	27	\N	\N	\N	\N
+155	t	Qubits	5	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	277	142	2022-03-08		\N	\N	27	\N	\N	\N	\N
+154	t	Qubits	5	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	277	142	2022-03-08		\N	\N	25	\N	\N	\N	\N
+152	t	Qubits	7	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	277	142	2022-03-08		\N	\N	24	\N	\N	\N	\N
+150	t	Qubits	7	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	277	142	2022-03-08		\N	\N	23	\N	\N	\N	\N
+165	t	Quantum volume	5	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	277	142	2022-03-08		\N	\N	22	\N	\N	\N	\N
+151	t	Qubits	7	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	277	142	2022-03-08		\N	\N	22	\N	\N	\N	\N
+168	t	Quantum volume	4	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	277	142	2022-03-08		\N	\N	12	\N	\N	\N	\N
+146	t	Qubits	27	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	277	142	2022-03-08		\N	\N	12	\N	\N	\N	\N
+139	t	Qubits	65	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	277	142	2022-03-08		\N	\N	20	\N	\N	\N	\N
+137	t	Qubits	127	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	277	142	2022-03-08		\N	\N	18	\N	\N	\N	\N
+171	t	Quantum volume	4	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	277	142	2022-03-08		\N	\N	17	\N	\N	\N	\N
+142	f	Qubits	27	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	277	142	2022-03-08		\N	\N	17	\N	\N	\N	\N
+141	t	Qubits	27	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	277	142	2022-03-08		\N	\N	15	\N	\N	\N	\N
+174	t	Quantum volume	4	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	277	142	2022-03-08		\N	\N	14	\N	\N	\N	\N
+226	f	Hellinger distance	0.12	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	166	151	2021-12-02	2 oracle calls	\N	\N	\N	\N	\N	\N	\N
+223	f	Hellinger distance	0.0228	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	166	151	2021-12-02	1 oracle call	\N	\N	\N	\N	\N	\N	\N
+222	f	Hellinger distance	0.0261	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	165	151	2021-12-02	1 oracle call	\N	\N	\N	\N	\N	\N	\N
+224	f	Hellinger distance	0.03	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	167	151	2021-12-02	1 oracle call	\N	\N	\N	\N	\N	\N	\N
+225	f	Hellinger distance	0.152	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	165	151	2021-12-02	2 oracle calls	\N	\N	\N	\N	\N	\N	\N
+227	f	Hellinger distance	0.127	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	167	151	2021-12-02		\N	\N	\N	\N	\N	\N	\N
+228	t	Coherence Time (T2) in Seconds	0.0001	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	168	152	2012-03-08	3D Transmon. Result taken from Figure 3a. Roughly 10^5 ns. 	\N	\N	\N	\N	\N	\N	\N
+143	f	Qubits	27	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	277	142	2022-03-08		\N	\N	16	\N	\N	\N	\N
+156	t	Qubits	5	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	277	142	2022-03-08		\N	\N	29	\N	\N	\N	\N
+153	t	Qubits	7	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	277	142	2022-03-08		\N	\N	26	\N	\N	\N	\N
+148	t	Qubits	16	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	277	142	2022-03-08		\N	\N	21	\N	\N	\N	\N
+144	t	Qubits	4	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	277	142	2022-03-08		\N	\N	19	\N	\N	\N	\N
+149	t	Qubits	8	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	277	142	2022-03-08		\N	\N	10	\N	\N	\N	\N
+178	t	Quantum volume	0	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	277	142	2022-03-08		\N	\N	7	\N	\N	\N	\N
+229	f	Logical error per syndrome measurement round	0.04	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	205	178	2022-03-14		\N	\N	\N	\N	\N	\N	\N
+230	f	Logical error per syndrome measurement round	0.03	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	206	178	2022-03-14		\N	\N	\N	\N	\N	\N	\N
+232	t	Time (s)	4400000	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	227	193	2022-03-30	7-qubit codes	\N	\N	\N	\N	\N	\N	\N
+231	f	Time (s)	18000	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	227	193	2022-03-30	4-qubit codes	\N	\N	\N	\N	\N	\N	\N
+234	t	T gate count	70	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	95	196	2021-09-02	50-qubit quantum circuit.	\N	\N	\N	\N	\N	\N	\N
+138	t	Qubits	79	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	277	142	2022-03-10		\N	\N	7	\N	\N	\N	\N
+162	t	Quantum volume	3	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	277	142	2022-03-08		\N	\N	11	\N	\N	\N	\N
+158	t	Quantum volume	3	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	277	142	2022-03-08		\N	\N	28	\N	\N	\N	\N
+209	f	Time (s)	445.32	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	149	150	2021-07-09		\N	\N	85	\N	\N	\N	\N
+210	f	Time (s)	365.35	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	149	150	2021-07-09		\N	\N	87	\N	\N	\N	\N
+213	f	Time (s)	211.68	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	149	150	2021-07-09		\N	\N	89	\N	\N	\N	\N
+218	f	Time (s)	292.52	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	149	150	2021-07-09		\N	\N	90	\N	\N	\N	\N
+215	f	Time (s)	303.75	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	149	150	2021-07-09		\N	\N	91	\N	\N	\N	\N
+216	f	Time (s)	670.67	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	149	150	2021-07-09		\N	\N	92	\N	\N	\N	\N
+235	t	Quantum volume	8	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	233	200	2022-04-06		\N	\N	63	\N	\N	\N	\N
+219	f	Time (s)	54.46	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	149	150	2021-07-09		\N	\N	93	\N	\N	\N	\N
+220	f	Time (s)	0.02	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	267	150	2021-07-09		\N	\N	93	\N	\N	\N	\N
+221	f	Time (s)	0.01	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	268	150	2021-07-09		\N	\N	93	\N	\N	\N	\N
+208	f	Time (s)	215.49	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	149	150	2021-07-09		\N	\N	86	\N	\N	\N	\N
+29	t	Factorized integer	16373	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	26	28	2021-11-23	See https://github.com/vm6502q/pyqrack-jupyter/blob/main/shor.ipynb for source, for result.	\N	\N	4	\N	\N	\N	\N
+106	f	Trend scale (seconds)	1e-09	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	110	121	2022-03-01	Exponential like [Trend scale (seconds)] * 2^n empirically observed, for n qubits\n\nAlienware m17 laptop\nAlienware BIOS version 1.6.2 (overclocking default/off)\nUbuntu 20.04.4 LTS\nCPU model: Intel(R) Core(TM) i9-10980HK CPU @ 2.40GHz\nDefault device: NVIDIA GeForce RTX 3080 Laptop GPU\nSecondary device: Intel(R) Gen9 HD Graphics NEO\nGeneral system RAM: 31866MB, 2x16GiB Row of chips DDR4 Synchronous 3200 MHz (0.3 ns)\nhttps://docs.google.com/spreadsheets/d/1fZ_TS3fnHHZvPe_FS8Xd9Tl_ynxUItOSi1Xi-57JOe8/edit?usp=sharing	\N	\N	4	\N	\N	\N	\N
+238	t	Approximation ratio	0.628	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	234	90	2022-02-11		\N	\N	32	\N	\N	\N	\N
+239	f	Mitigation threshold shots	3000	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	237	209	2022-04-14		\N	\N	48	\N	\N	\N	\N
+240	f	Mitigation threshold shots	120000	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	236	209	2022-04-14		\N	\N	48	\N	\N	\N	\N
+241	f	Time (s)	347	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	240	212	2022-04-12		\N	\N	50	\N	\N	\N	\N
+242	f	Time (s)	246	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	240	212	2022-04-12		\N	\N	51	\N	\N	\N	\N
+243	f	Time (s)	6.7	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	240	212	2022-04-12		\N	\N	52	\N	\N	\N	\N
+244	f	Time (s)	3.5	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	240	212	2022-04-12		\N	\N	53	\N	\N	\N	\N
+245	f	Time (s)	2.6	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	240	212	2022-04-12		\N	\N	54	\N	\N	\N	\N
+246	f	Time (s)	2.1	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	240	212	2022-04-12		\N	\N	55	\N	\N	\N	\N
+247	f	Time (s)	383	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	240	212	2022-04-12		\N	\N	56	\N	\N	\N	\N
+248	f	Time (s)	5.6	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	240	212	2022-04-12		\N	\N	57	\N	\N	\N	\N
+249	f	Time (s)	1.4	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	240	212	2022-04-12		\N	\N	58	\N	\N	\N	\N
+265	t	Quantum volume	9	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	277	142	2022-03-18		\N	\N	136	\N	\N	\N	\N
+266	f	Quantum volume	3	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	277	142	2022-03-18		\N	\N	137	\N	\N	\N	\N
+250	f	Hardness parameter exponent	0.6313	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	93	97	2022-02-18	Considering only graphs with\nminimum energy gaps large enough to be resolved in the duration of the quantum evolution	\N	\N	62	\N	\N	\N	\N
+251	f	Distance	2	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	245	216	\N		\N	\N	65	\N	\N	\N	\N
+256	f	Distance	0	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	35	38	2021-12-15		\N	\N	\N	\N	\N	\N	\N
+257	t	Fidelity (L2)	0.78	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	234	83	\N	Result extracted from Figure 3b (GHZ fidelity vs N qubit number)	\N	\N	32	\N	\N	\N	\N
+258	t	Qubits	6	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	234	84	\N		\N	\N	32	\N	\N	\N	\N
+259	t	CLOPS	8333	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	274	91	\N	Not peer-reviewed or third-party reviewed.	\N	\N	33	\N	\N	\N	\N
+260	t	CLOPS	7512	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	274	91	\N	Not peer-reviewed or third-party reviewed.	\N	\N	34	\N	\N	\N	\N
+237	t	Qubits	27	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	277	142	2022-03-08		\N	\N	13	\N	\N	\N	\N
+236	t	Qubits	5	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	277	142	2022-03-08		\N	\N	28	\N	\N	\N	\N
+261	t	Approximation ratio	1	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	286	234	2021-06-18	F-VQE outperforms VQE and QAOA on all metrics on 25 MaxCut weighted 3-regular random instances of 6, 8, 10, 12 and 14 nodes: average approximation ratio, optimisation steps, and fraction of solved instances.	\N	25	130	\N	\N	\N	\N
+267	f	Qubits	12	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	277	142	2022-03-18		\N	\N	136	\N	\N	\N	\N
+263	f	Qubits	6	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	287	234	2021-06-18	HE-ITE solves a random 24-node MaxCut weighted 3-regular graph using only 6 qubits. 	\N	25	130	\N	\N	\N	\N
+268	f	Qubits	11	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	277	142	2022-03-18		\N	\N	137	\N	\N	\N	\N
+262	t	Approximation ratio	1	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	286	234	2021-06-18	F-VQE solves a random 10-node MaxCut weighted 3-regular on the Honeywell / Quantinuum H1 device. 	\N	1	129	\N	\N	\N	\N
+264	t	Approximation ratio	1	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	288	235	2021-09-08	F-VQE achieves 25% probability of sampling the optimal solution on a 23-qubit Job-shop Scheduling problem of industrial relevance on the superconducting processor ibmq_manhattan.	\N	1	132	\N	\N	\N	\N
+269	t	Quantum volume	10	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	252	48	2021-07-12		\N	\N	134	\N	\N	\N	\N
+271	t	Quantum volume	9	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	295	237	2021-03-02		\N	\N	139	\N	\N	\N	\N
+278	t	Gate fidelity	0.9921	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	303	244	2020-06-20		0.0004	\N	135	\N	\N	\N	\N
+48	t	Gate count	775	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	29	34	2020-11-13	Results presented in the paper "A Verified Optimizer for Quantum Circuits", Table 2.	\N	\N	\N	\N	\N	\N	\N
+49	t	Gate count	805	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	30	34	2020-11-13	Results presented in the paper "A Verified Optimizer for Quantum Circuits", Table 2.	\N	\N	\N	\N	\N	\N	\N
+50	t	Gate count	682	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	31	34	2020-11-13	Results presented in the paper "A Verified Optimizer for Quantum Circuits", Table 2.	\N	\N	\N	\N	\N	\N	\N
+52	f	Gate count	606	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	32	34	2020-11-13	Results presented in the paper "A Verified Optimizer for Quantum Circuits", Table 2.	\N	\N	\N	\N	\N	\N	\N
+1	t	Qubits	22	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	2	2	2020-04-08		\N	\N	\N	\N	\N	\N	\N
+3	t	Factorized integer	3127	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	5	5	2020-12-14		\N	\N	\N	\N	\N	\N	\N
+4	t	Factorized integer	6557	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	5	5	2020-12-14		\N	\N	\N	\N	\N	\N	\N
+5	t	Factorized integer	1099551473989	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	5	5	2020-12-14		\N	\N	\N	\N	\N	\N	\N
+18	f	LiH energy (Hartree units)	-7.7	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	11	18	\N		\N	\N	\N	\N	\N	\N	\N
+20	f	H2 energy (Hartreee units)	-1.1	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	11	18	\N		\N	\N	\N	\N	\N	\N	\N
+53	f	T gate count	215	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	31	34	2020-11-13	Results presented in the paper "A Verified Optimizer for Quantum Circuits", Table 3.	\N	\N	\N	\N	\N	\N	\N
+295	f	Qubits	1120	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	308	253	2022-05-30		\N	\N	\N	\N	\N	\N	\N
+296	f	Circuit depth	5200	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	308	253	2022-05-30		\N	\N	\N	\N	\N	\N	\N
+297	f	Bands	3	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	308	254	2022-05-30		\N	\N	\N	\N	\N	\N	\N
+298	f	Qubits	180	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	308	254	2022-05-30		\N	\N	\N	\N	\N	\N	\N
+299	f	Circuit depth	730	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	308	254	2022-05-30		\N	\N	\N	\N	\N	\N	\N
+300	f	Infidelity exponent, function of iterations	-1.19	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	309	255	2022-05-01		\N	\N	\N	\N	\N	\N	\N
+301	f	Infidelity exponent, function of iterations	-1.3	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	309	256	2022-05-01		\N	\N	\N	\N	\N	\N	\N
+302	f	Time (days)	20	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	310	258	2021-09-13	Extrapolated estimate	\N	\N	144	\N	\N	\N	\N
+19	f	H2 energy (Hartree units)	-7.7	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	1	11	18	\N		\N	\N	\N	\N	\N	\N	\N
+21	f	BeH2 energy (Hartree units)	-1.1	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	1	11	18	\N		\N	\N	\N	\N	\N	\N	\N
+47	f	Circuit depth	10	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	1	8	31	2021-12-01		\N	\N	80	\N	\N	\N	\N
+43	t	Factorized integer	163214	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	1	27	32	2021-11-03		\N	\N	\N	\N	\N	\N	\N
+51	f	Gate count	606	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	1	32	34	2020-11-13		\N	\N	\N	\N	\N	\N	\N
+17	f	H2 energy	0	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	1	11	18	\N		\N	\N	\N	\N	\N	\N	\N
+275	t	Gate fidelity	0.9976	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	299	241	2021-03-02		0.0003	\N	139	\N	\N	\N	\N
+274	t	Gate fidelity	0.9954	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	298	240	2020-09-29		0.0007	\N	138	\N	\N	\N	\N
+270	t	Quantum volume	7	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	294	236	2020-09-29		\N	\N	138	\N	\N	\N	\N
+273	t	Quantum volume	12	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	297	239	2022-04-11		\N	\N	141	\N	\N	\N	\N
+276	t	Gate fidelity	0.9981	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	300	242	2022-04-11		0.0003	\N	141	\N	\N	\N	\N
+277	f	Gate fidelity	0.9977	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	301	243	2021-12-17		0.009	\N	140	\N	\N	\N	\N
+272	f	Quantum volume	11	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	296	238	2021-12-17		\N	\N	140	\N	\N	\N	\N
+280	t	Qubits	36	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	307	245	2022-05-23	17000ms per GPU ( K80 has 2 GPUs )\nmeasured results export: https://github.com/twobombs/thereminq/blob/master/miscfiles/TNN_d.tar.gz	11	3081	143	\N	\N	\N	\N
+279	t	Quantum volume	8	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	304	200	2022-04-06		\N	\N	63	\N	\N	\N	\N
+254	t	Factorized integer	2147483637	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	305	28	2022-05-02	27 * 79536431, 143 ms for quantum subroutine, which was engaged in Shor's algorithm, (simulated), 3n+1 footprint,  as can be trivially validated in https://github.com/vm6502q/pyqrack-jupyter/blob/main/shor.ipynb	0	\N	4	\N	\N	\N	\N
+281	t	Qubits	38	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	307	245	2022-05-23	overview of error rates and/at depth\nhttps://user-images.githubusercontent.com/12692227/156922673-f563cdfc-1a66-4e67-a5e9-ea557ab7bc5d.png	14	17	143	\N	\N	\N	\N
+282	f	Qubits	40	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	307	245	\N	overview of error rate and/at depth \n\nhttps://user-images.githubusercontent.com/12692227/156922673-f563cdfc-1a66-4e67-a5e9-ea557ab7bc5d.png	37	4	143	\N	\N	\N	\N
+283	t	Qubits	28	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	307	246	2022-05-23	Sycamore scope from 12 to 28qubits with 99678 measured results downloadable at :\nhttps://github.com/twobombs/thereminq/blob/master/miscfiles/qrack-supreme12-28q14d10k.tar.gz	0	10223	143	\N	\N	\N	\N
+284	t	Qubits	24	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	307	247	2022-05-23	Range between 4 and 24qubits\nTotal amount of samples 724615\nDownloadable at https://github.com/twobombs/thereminq/blob/master/miscfiles/qrack-cosmos.tar.gz	0	34500	143	\N	\N	\N	\N
+285	f	Bands	4	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	308	250	2022-05-30		\N	\N	\N	\N	\N	\N	\N
+286	f	Qubits	1120	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	308	250	2022-05-30		\N	\N	\N	\N	\N	\N	\N
+287	f	Circuit depth	4900	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	308	250	2022-05-30		\N	\N	\N	\N	\N	\N	\N
+288	f	Bands	7	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	308	251	2022-05-30		\N	\N	\N	\N	\N	\N	\N
+289	f	Qubits	1870	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	308	251	2022-05-30		\N	\N	\N	\N	\N	\N	\N
+290	f	Circuit depth	28000	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	308	251	2022-05-30		\N	\N	\N	\N	\N	\N	\N
+291	f	Bands	11	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	308	252	2022-05-30		\N	\N	\N	\N	\N	\N	\N
+292	f	Qubits	1024	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	308	252	2022-05-30		\N	\N	\N	\N	\N	\N	\N
+293	f	Circuit depth	8000	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	308	252	2022-05-30		\N	\N	\N	\N	\N	\N	\N
+294	f	Bands	4	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	\N	1	308	253	2022-05-30		\N	\N	\N	\N	\N	\N	\N
 \.
 
 
@@ -3855,6 +3858,14 @@ ALTER TABLE ONLY public."resultPlatformRefs"
 
 ALTER TABLE ONLY public."resultPlatformRefs"
     ADD CONSTRAINT "resultPlatformRefs_userId_fkey" FOREIGN KEY ("userId") REFERENCES public.users(id);
+
+
+--
+-- Name: results results_submissionDataSetRefId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: metriq
+--
+
+ALTER TABLE ONLY public.results
+    ADD CONSTRAINT "results_submissionDataSetRefId_fkey" FOREIGN KEY ("submissionDataSetRefId") REFERENCES public."submissionPlatformRefs"(id);
 
 
 --
