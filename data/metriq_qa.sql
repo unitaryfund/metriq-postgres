@@ -927,11 +927,11 @@ ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_
 --
 
 COPY public."SequelizeMeta" (name) FROM stdin;
-1-386_UserAffilliation.js
-2-363_MethodHierarchy.js
-3-505_ResultsConfidenceIntervals.js
-4-452_Architecture.js
-5-452_ArchitectureRefs.js
+001-386_UserAffilliation.js
+002-363_MethodHierarchy.js
+003-505_ResultsConfidenceIntervals.js
+004-452_Architecture.js
+005-452_ArchitectureRefs.js
 \.
 
 
