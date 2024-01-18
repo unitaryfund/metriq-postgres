@@ -1218,14 +1218,6 @@ COPY public."dataTypes" (id, "updatedAt", "createdAt", name, "friendlyName", "fr
 6	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	DECIMAL	Decimal (high-precision)	number
 7	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	DATE	Date and time	datetime
 8	2022-06-13 00:00:00-04	2022-06-13 00:00:00-04	DATEONLY	Date	date
-9	\N	\N	BOOLEAN	Boolean (true/false)	bool
-10	\N	\N	TEXT	Text	string
-11	\N	\N	CITEXT	Text (case-insenstive)	string
-12	\N	\N	BIGINT	Integer	int
-13	\N	\N	'DOUBLE PRECISION'	Number (64-bit floating point)	number
-14	\N	\N	DECIMAL	Decimal (high-precision)	number
-15	\N	\N	DATE	Date and time	datetime
-16	\N	\N	DATEONLY	Date	date
 \.
 
 
